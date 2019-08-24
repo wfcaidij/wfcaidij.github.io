@@ -152,6 +152,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-创建hexo的github分支" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/24/创建hexo的github分支/">创建hexo的github分支</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/24/创建hexo的github分支/" class="archive-article-date">
+  	<time datetime="2019-08-24T08:21:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前期工作"><a href="#前期工作" class="headerlink" title="前期工作"></a>前期工作</h2><ol>
+<li>首先确保自己已经使用hexo在github搭建好了自己的个人博客</li>
+</ol>
+<hr>
+<h2 id="创建上传分支仓库"><a href="#创建上传分支仓库" class="headerlink" title="创建上传分支仓库"></a>创建上传分支仓库</h2><ol>
+<li>在github新建一个xxx分支，并切换到分支，在该仓库-&gt;Settings-&gt;Branches-&gt;Default branch中将默认分支设为xxx，save保存。<br>新建分支，并选中新建的分支，如下图：<br><img src="/2019/08/24/创建hexo的github分支/art1.png" alt><br>设置新建的xxx分支为默认分支，如下图：<br><img src="/2019/08/24/创建hexo的github分支/art2.png" alt></li>
+<li>然后将该仓库克隆到本地，进入到本地的xxx.github.io文件目录。<br>进入本地的xxx.github.io后，在当前目录执行git branch命令查看本地当前所在分支，应为新建的分支xxx<br>添加新分支<br>git checkout -b xxx<br>切换远程分支到本地<br>git checkout -b xxx origin/xxx<br>切换本地分支<br>git checkout xxx</li>
+<li>再将之前的源代码拷贝到xxx.github.io文件目录</li>
+<li>将主题的文件夹中的.git文件删除</li>
+<li>git add . 、git commit -m “描述”、git push</li>
+</ol>
+<hr>
+<h2 id="在不同电脑上操作流程"><a href="#在不同电脑上操作流程" class="headerlink" title="在不同电脑上操作流程"></a>在不同电脑上操作流程</h2><ol>
+<li>git pull</li>
+<li>git add . 、git commit -m “描述”、git push 更新源代码</li>
+<li>hexo clean、hexo g、hexo d  更新编辑后的静态页面</li>
+</ol>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/24/创建hexo的github分支/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-在github中搭建hexo个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -177,11 +257,16 @@
 <li>安装node.js、npm</li>
 </ol>
 <hr>
-<h2 id="第一部分"><a href="#第一部分" class="headerlink" title="第一部分"></a>第一部分</h2><ol>
-<li>登录github官网创建仓库</li>
+<h2 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h2><ol>
+<li>登录github官网创建仓库，点击New repository<br> <img src="/2019/08/24/在github中搭建hexo个人博客/art1.png" alt><br> 创建仓库完成</li>
+<li>npm install -g hexo-cli</li>
+<li>hexo init</li>
+<li>配置git用户名和密码    git config –global user.name “youname”  git config –global user.email “<a href="mailto:aa@qq.com" target="_blank" rel="noopener">aa@qq.com</a>“</li>
+<li>hexo clean、hexo g、hexo s</li>
+<li>npm install –save hexo-deployer-git</li>
+<li>设置_config.yml<br><img src="/2019/08/24/在github中搭建hexo个人博客/art2.png" alt></li>
 </ol>
 <hr>
-<p><img src="/2019/08/24/在github中搭建hexo个人博客/art1.png" alt="art1"></p>
 
       
 
