@@ -1,6 +1,7 @@
 ---
 title: 在github中搭建hexo个人博客
 date: 2019-08-24 14:21:13
+categories: 其他
 ---
 ## 前期工作
 1. 有一个github账号

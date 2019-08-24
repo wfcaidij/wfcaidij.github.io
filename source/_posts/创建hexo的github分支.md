@@ -1,6 +1,7 @@
 ---
 title: 创建hexo的github分支
 date: 2019-08-24 16:21:13
+categories: 其他
 ---
 ## 前期工作
 1. 首先确保自己已经使用hexo在github搭建好了自己的个人博客
