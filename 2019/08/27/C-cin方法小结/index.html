@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href>
-  <title>Archives | Object博客</title>
+  <title>C++ cin方法小结 | Object博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Object博客">
-<meta property="og:url" content="/archives/index.html">
+  <meta name="description" content="转载原文链接：https://blog.csdn.net/m0_37409332/article/details/55549933 一、输入原理程序的输入都建有一个缓冲区，即输入缓冲区。一次输入过程是这样的，当一次键盘输入结束时会将输入的数据存入输入缓冲区，而cin函数直接从输入缓冲区中取数据。正因为cin函数是直接从缓冲区取数据的，所以有时候当缓冲区中有残留数据时，cin函数会直接取得这些残留数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ cin方法小结">
+<meta property="og:url" content="/2019/08/27/C-cin方法小结/index.html">
 <meta property="og:site_name" content="Object博客">
+<meta property="og:description" content="转载原文链接：https://blog.csdn.net/m0_37409332/article/details/55549933 一、输入原理程序的输入都建有一个缓冲区，即输入缓冲区。一次输入过程是这样的，当一次键盘输入结束时会将输入的数据存入输入缓冲区，而cin函数直接从输入缓冲区中取数据。正因为cin函数是直接从缓冲区取数据的，所以有时候当缓冲区中有残留数据时，cin函数会直接取得这些残留数">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-27T02:25:17.909Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Object博客">
+<meta name="twitter:title" content="C++ cin方法小结">
+<meta name="twitter:description" content="转载原文链接：https://blog.csdn.net/m0_37409332/article/details/55549933 一、输入原理程序的输入都建有一个缓冲区，即输入缓冲区。一次输入过程是这样的，当一次键盘输入结束时会将输入的数据存入输入缓冲区，而cin函数直接从输入缓冲区中取数据。正因为cin函数是直接从缓冲区取数据的，所以有时候当缓冲区中有残留数据时，cin函数会直接取得这些残留数">
   
     <link rel="alternative" href="/atom.xml" title="Object博客" type="application/atom+xml">
   
@@ -156,125 +160,169 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-C-cin方法小结" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      C++ cin方法小结
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/27/C-cin方法小结/" class="archive-article-date">
+
+        
+        <a href="/2019/08/27/C-cin方法小结/" class="archive-article-date">
   	<time datetime="2019-08-27T01:28:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-27</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/27/C-cin方法小结/">C++ cin方法小结</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转载原文链接：<a href="https://blog.csdn.net/m0_37409332/article/details/55549933" target="_blank" rel="noopener">https://blog.csdn.net/m0_37409332/article/details/55549933</a></p>
+<h2 id="一、输入原理"><a href="#一、输入原理" class="headerlink" title="一、输入原理"></a>一、输入原理</h2><p>程序的输入都建有一个缓冲区，即输入缓冲区。一次输入过程是这样的，当一次键盘输入结束时会将输入的数据存入输入缓冲区，而cin函数直接从输入缓冲区中取数据。正因为cin函数是直接从缓冲区取数据的，所以有时候当缓冲区中有残留数据时，cin函数会直接取得这些残留数据而不会请求键盘输入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str [<span class="number">8</span>];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"输入："</span>;  <span class="comment">// 输入happy new year[Enter]</span></span><br><span class="line">    <span class="built_in">cin</span>.get(str,<span class="number">5</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; str&lt;&lt; <span class="built_in">endl</span>;   <span class="comment">// 输出happ</span></span><br><span class="line">    <span class="built_in">cin</span>.get(str,<span class="number">5</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; str &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 输出y ne</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>[分析]：之所以第一次输入完后直接程序就结束了，而不是进行第二次输入，是因为第一次多输入的数据还残留在缓存区中，第二次输入就直接从缓存区中提取而不会请求键盘输入</p>
+<h2 id="二、几种常见的输入方式"><a href="#二、几种常见的输入方式" class="headerlink" title="二、几种常见的输入方式"></a>二、几种常见的输入方式</h2><h3 id="1-cin-gt-gt"><a href="#1-cin-gt-gt" class="headerlink" title="1. cin &gt;&gt;"></a>1. cin &gt;&gt;</h3><p>该操作符是根据后面变量的类型读取数据。</p>
+<p>输入结束条件：遇到Enter、Space、Tab键。</p>
+<p>对结束符的处理：丢弃缓冲区中使得输入结束的结束符(Enter、Space、Tab)</p>
+<p>cin会检查输入格式，输入与预期格式不符时，会返回false，正常情况下则会返回输入流本身；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str1[<span class="number">10</span>],str2[<span class="number">10</span>]; </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入"</span>; <span class="comment">// 输入：happy new year[Enter]</span></span><br><span class="line">    <span class="built_in">cin</span> &lt;&lt; str1;   <span class="comment">// 接收happy  </span></span><br><span class="line">    <span class="built_in">cin</span> &lt;&lt; str2;   <span class="comment">// 接收new</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; str1&lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 输出happy </span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; str2&lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 输出new</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>[分析]：第一次读取字符串时遇到空格则停止了，将happy读入str1，并舍弃了空格，将后面的字符串给了第二个字符串。这证明了cin读入数据遇到空格结束；并且丢弃空格符；缓冲区有残留数据，读入操作直接从缓冲区中取数据。</p>
+<h3 id="2-cin-get-数组名，长度，结束符"><a href="#2-cin-get-数组名，长度，结束符" class="headerlink" title="2.cin.get(数组名，长度，结束符)"></a>2.cin.get(数组名，长度，结束符)</h3><p>其中结束符为可选参数，读入的字符个数最多为长度减1个，结束符规定结束字符串读取的字符，默认为Enter。</p>
+<p>1.读取字符的情况：</p>
+<p>若要读取字符，直接cin.get(char ch)或ch=cin.get()即可。</p>
+<p>输入结束条件：Enter键</p>
+<p>对结束符处理：不丢弃缓冲区中的Enter</p>
+<p>cin.get()与cin.get(char ch)用于读取字符，他们的使用是相似的，即：ch=cin.get()与cin.get(ch)是等价的。若文件读取最好使用文件流.get(ch)。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">char</span>  ch1,ch2;</span><br><span class="line">   <span class="built_in">cout</span>&lt;&lt;<span class="string">"请输入"</span>;  <span class="comment">// 第1次输入a[Enter] 第2次输入a[Space]b</span></span><br><span class="line">   <span class="built_in">cin</span>.get(ch1);   <span class="comment">// 第1次接收a  第2次接收a</span></span><br><span class="line">   <span class="built_in">cin</span>.get(ch2);   <span class="comment">// 第1次接收[Enter]  第2次接收[Space]</span></span><br><span class="line">   <span class="built_in">cout</span>&lt;&lt; (<span class="keyword">int</span>)ch1&lt;&lt;<span class="string">"|"</span>&lt;&lt; (<span class="keyword">int</span>)ch2&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// 第1次输出97|10 第2次输出97|32</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[分析1]会发现只执行了一次从键盘输入，显然第一个字符变量取的’a’, 第二个变量取的是Enter(ASCII值为10)，这是因为该函数不丢弃上次输入结束时的Enter字符，所以第一次输入结束时缓冲区中残留的是上次输入结束时的Enter字符！</p>
+<p>[分析2]显然第一个字符变量取的’a’, 第二个变量取的是Space(ASCII值为32)。原因同上，没有丢弃Space字符。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/2019/08/27/C-cin方法小结/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/24/创建hexo的github分支/" class="archive-article-date">
-  	<time datetime="2019-08-24T08:21:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/24/创建hexo的github分支/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">创建hexo的github分支</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/24/创建hexo的github分支/">创建hexo的github分支</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、输入原理"><span class="toc-number">1.</span> <span class="toc-text">一、输入原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、几种常见的输入方式"><span class="toc-number">2.</span> <span class="toc-text">二、几种常见的输入方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-cin-gt-gt"><span class="toc-number">2.1.</span> <span class="toc-text">1. cin &gt;&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-cin-get-数组名，长度，结束符"><span class="toc-number">2.2.</span> <span class="toc-text">2.cin.get(数组名，长度，结束符)</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/24/在github中搭建hexo个人博客/" class="archive-article-date">
-  	<time datetime="2019-08-24T06:21:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/24/在github中搭建hexo个人博客/">在github中搭建hexo个人博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -297,8 +345,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
