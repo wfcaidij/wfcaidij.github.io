@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href>
-  <title>Archives: 2019 | Object博客</title>
+  <title>寄存器（内存访问） | Object博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Object博客">
-<meta property="og:url" content="/archives/2019/index.html">
+  <meta name="description" content="CPU中用16位寄存器来存储一个字，高8位存放高位字节，低8位存放低位字节。在内存中存储时，由于内存单元是字节单元（一个单元存放一个字节），则一个字要用两个地址连续的内存单元来存放，这个字的低位字节存放在低地址单元中，高位字节存放在高地址单元中。  8086CPU中有DS寄存器，通常用来存放要访问数据的段地址，可以使用mov指令将一个内存单元中的内容送入一个寄存器中，例如：mov bx,1000">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寄存器（内存访问）">
+<meta property="og:url" content="/2019/08/31/寄存器（内存访问）/index.html">
 <meta property="og:site_name" content="Object博客">
+<meta property="og:description" content="CPU中用16位寄存器来存储一个字，高8位存放高位字节，低8位存放低位字节。在内存中存储时，由于内存单元是字节单元（一个单元存放一个字节），则一个字要用两个地址连续的内存单元来存放，这个字的低位字节存放在低地址单元中，高位字节存放在高地址单元中。  8086CPU中有DS寄存器，通常用来存放要访问数据的段地址，可以使用mov指令将一个内存单元中的内容送入一个寄存器中，例如：mov bx,1000">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-03T06:41:14.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Object博客">
+<meta name="twitter:title" content="寄存器（内存访问）">
+<meta name="twitter:description" content="CPU中用16位寄存器来存储一个字，高8位存放高位字节，低8位存放低位字节。在内存中存储时，由于内存单元是字节单元（一个单元存放一个字节），则一个字要用两个地址连续的内存单元来存放，这个字的低位字节存放在低地址单元中，高位字节存放在高地址单元中。  8086CPU中有DS寄存器，通常用来存放要访问数据的段地址，可以使用mov指令将一个内存单元中的内容送入一个寄存器中，例如：mov bx,1000">
   
     <link rel="alternative" href="/atom.xml" title="Object博客" type="application/atom+xml">
   
@@ -156,75 +160,73 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-寄存器（内存访问）" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/04/C-学习阶段小结/" class="archive-article-date">
-  	<time datetime="2019-09-04T06:53:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/C-学习阶段小结/">C++学习阶段小结</a>
+    <h1 class="article-title" itemprop="name">
+      寄存器（内存访问）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/31/寄存器（内存访问）/" class="archive-article-date">
+        
+        <a href="/2019/08/31/寄存器（内存访问）/" class="archive-article-date">
   	<time datetime="2019-08-31T00:17:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/31/寄存器（内存访问）/">寄存器（内存访问）</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>CPU中用16位寄存器来存储一个字，高8位存放高位字节，低8位存放低位字节。在内存中存储时，由于内存单元是字节单元（一个单元存放一个字节），则一个字要用两个地址连续的内存单元来存放，这个字的低位字节存放在低地址单元中，高位字节存放在高地址单元中。</p>
+</li>
+<li><p>8086CPU中有DS寄存器，通常用来存放要访问数据的段地址，可以使用mov指令将一个内存单元中的内容送入一个寄存器中，例如：mov bx,1000H    mov ds,bx   mov al,[0] ，指令的格式是：mov  寄存器名 ，内存单元地址。”[ …]”表示一个内存单元，“[….]”中的0表示内存单元的偏移地址</p>
+</li>
+<li><p>8086CPU不支持将数据直接送入段寄存器的操作，ds是一个段寄存器，所以 mov ds,1000H这条指令是非法的，只能用一个寄存器来进行中转，先将1000H送入一个一般寄存器，再将寄存器的内容送入ds 中</p>
+</li>
+<li><p>mov 指令可以有以下几种形式</p>
+<p> mov 寄存器，数据    比如：mov ax,8</p>
+<p> mov 寄存器，寄存器    比如：mov ax,bx</p>
+<p> mov 寄存器，内存单元    比如：mov ax,[0]</p>
+<p> mov 内存单元，寄存器    比如：mov [0],ax</p>
+<p> mov 段寄存器，寄存器    比如：mov ds,ax</p>
+</li>
+<li><p>add 和 sub指令有以下几种形式</p>
+<p> add 寄存器，数据    比如：add ax,8</p>
+<p> add 寄存器，寄存器    比如：add ax,bx</p>
+<p> add 寄存器，内存单元    比如：add ax,[0]</p>
+<p> add 内存单元，寄存器    比如：add [0],ax</p>
+<p> sub 寄存器，数据    比如：sub ax,9</p>
+<p> sub 寄存器，寄存器    比如：sub ax,bx</p>
+<p> sub 寄存器，内存单元    比如：sub ax,[0]</p>
+<p> sub 内存单元，寄存器    比如：sub [0],ax</p>
+</li>
+<li><p>8086CPU提供栈操作机制，在SS、SP中存放栈顶的段地址和偏移地址，提供入栈和出栈指令，它们根据SS:SP指示的地址，按照栈的方式访问内存单元</p>
+</li>
+<li><p>push指令的执行步骤：（1）SP=SP-2  （2）向SS:SP指向的字单元中送入数据</p>
+<p> 指令格式为：push 寄存器      将一个寄存器中的数据入栈</p>
+</li>
+<li><p>pop指令的执行步骤：（1）从SS:SP指向的字单元中读取数据 （2）SP=SP+2</p>
+<p> 指令格式为：pop 寄存器        出栈，用一个寄存器接收出栈的数据</p>
+</li>
+<li><p>任意时刻，SS:SP指向栈顶元素</p>
+</li>
+</ol>
+<p>10  8086CPU只记录栈顶，占空间的大小我们要自己管理</p>
+<p>11  用栈来暂存以后需要恢复的寄存器的内容时，寄存器出栈的顺序要和入栈顺序相反</p>
+<p>12  push、pop实质上是一种内存传送指令</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -237,245 +239,126 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/2019/08/31/寄存器（内存访问）/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/31/寄存器/" class="archive-article-date">
-  	<time datetime="2019-08-31T00:16:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/09/04/C-学习阶段小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          C++学习阶段小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/31/寄存器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">寄存器</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/31/寄存器/">寄存器</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/汇编//" class="article-tag-list-link color3">汇编</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/31/汇编基础知识/" class="archive-article-date">
-  	<time datetime="2019-08-30T23:55:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/31/汇编基础知识/">汇编基础知识</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/汇编//" class="article-tag-list-link color3">汇编</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/28/C-iostream详解/" class="archive-article-date">
-  	<time datetime="2019-08-28T00:49:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-28</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/28/C-iostream详解/">C++ iostream详解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/27/C-cin方法小结/" class="archive-article-date">
-  	<time datetime="2019-08-27T01:28:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/27/C-cin方法小结/">C++ cin方法小结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/24/创建hexo的github分支/" class="archive-article-date">
-  	<time datetime="2019-08-24T08:21:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/24/创建hexo的github分支/">创建hexo的github分支</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/24/在github中搭建hexo个人博客/" class="archive-article-date">
-  	<time datetime="2019-08-24T06:21:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/24/在github中搭建hexo个人博客/">在github中搭建hexo个人博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -498,8 +381,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
