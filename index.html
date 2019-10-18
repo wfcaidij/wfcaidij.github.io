@@ -158,6 +158,146 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-C-STL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/C-STL/">C++ STL</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/C-STL/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:59:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文链接：<a href="https://www.jianshu.com/p/1a5ea304a43f" target="_blank" rel="noopener">https://www.jianshu.com/p/1a5ea304a43f</a></p>
+<p>STL 组件主要包括容器，迭代器、算法和仿函数。STL 基本结构和 STL 组件对应。</p>
+<p>STL 主要由迭代器、算法、容器、仿函数、内存配置器和配接器六部分组成，可帮助程序员完成许多功能完善、形式多样的程序。</p>
+<hr>
+<h3 id="STL-组件"><a href="#STL-组件" class="headerlink" title="STL 组件"></a>STL 组件</h3><p>STL 是 C++ 标准程序库的核心。STL 内的所有组件都由模板构成，其元素可以是任意型别。<br>STL 组件主要包括容器，迭代器、算法和仿函数。</p>
+<ul>
+<li>容器</li>
+</ul>
+<p>容器即用来存储并管理某类对象的集合。例如鱼缸是用来盛放金鱼的容器。</p>
+<p>每一种容器都有其优点和缺点。为满足程序的各种需求，STL 准备了多种容器类型，容器可以是 arrays 或是 linked lists，或者每个元素有特别的键值。</p>
+<ul>
+<li>迭代器</li>
+</ul>
+<p>迭代器用于在一个对象群集的元素上进行遍历动作。对象群集可能是容器，也可能是容器的一部分。</p>
+<p>迭代器的主要用途是为容器提供一组很小的公共接口。利用这个接口，某项操作可以行进至群集内的下一个元素。</p>
+<p>每种容器都提供了各自的迭代器。迭代器了解该容器的内部结构，所以能够正确行进。迭代器的接口和一般指针类似。</p>
+<ul>
+<li>算法</li>
+</ul>
+<p>算法用来处理群集内的元素，可以出于不同目的搜寻、排序、修改、使用那些元素。所有容器的迭代器都提供一致的接口，通过迭代器的协助，算法程序可以用于任意容器。</p>
+<p>STL 的一个特性是将数据和操作分离。数据由容器类别加以管理，操作则由可定制的算法定义。迭代器在两者之间充当“粘合剂”，以使算法可以和容器交互运作。</p>
+<p>STL 的另一个特性即组件可以针对任意型别运作。“标准模板库”这一名称即表示“可接受任意型别”的模板，并且这些型别均可执行必要操作。</p>
+<p>在 STL 中，容器又分为序列式容器和关联式容器两大类，而迭代器的功能主要是遍历容器内全部或部分元素的对象。迭代器可划分为 5 种类属，这 5 种类属归属两种类型：双向迭代器和随机存取迭代器。</p>
+<p>SIL 中提供的算法包括搜寻、排序、复制、重新排序、修改、数值运算等。</p>
+<hr>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>STL 包含诸多容器类。容器类是可以包含其他对象的类，就像数组和队列堆栈等数据结构包含整数、小数、类等数据成员一样。STL 可以包含常见的向量类、链表类、双向队列类、集合类、图类等，每个类都是一种模板，这些模板可以包含各种类型的对象。</p>
+<p>目前，STL 中已经提供的容器主要如下：</p>
+<ul>
+<li>vector &lt;T&gt;：一种向量。</li>
+<li>list &lt;T&gt;：一个双向链表容器，完成了标准 C++ 数据结构中链表的所有功能。</li>
+<li>queue &lt;T&gt;：一种队列容器，完成了标准 C++ 数据结构中队列的所有功能。</li>
+<li>stack &lt;T&gt;：一种栈容器，完成了标准 C++ 数据结构中栈的所有功能。</li>
+<li>deque &lt;T&gt;：双端队列容器，完成了标准 C++ 数据结构中栈的所有功能。</li>
+<li>priority_queue &lt;T&gt;：一种按值排序的队列容器。</li>
+<li>set &lt;T&gt;：一种集合容器。</li>
+<li>multiset &lt;T&gt;：一种允许出现重复元素的集合容器。</li>
+<li>map &lt;key, val&gt;：一种关联数组容器。</li>
+<li>multimap &lt;key, val&gt;：一种允许出现重复 key 值的关联数组容器。</li>
+</ul>
+<p>容器可以分为序列式容器和关联式容器两大类。序列式容器主要有 vector、list 和 deque；关联式容器包括 set、map、multiset 和 multimap 等容器模板类。</p>
+<hr>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>STL 提供了非常多的数据结构算法。这些算法在命名空间 std 的范围内定义，通过包含头文件 &lt;algorithm&gt; 来获得使用权。<br>常见的部分算法如下：</p>
+<ul>
+<li>for_each()；</li>
+<li>find()；</li>
+<li>find_if()；</li>
+<li>count()；</li>
+<li>count_if()；</li>
+<li>replace()；</li>
+<li>replace_if()；</li>
+<li>copy()；</li>
+<li>unique_copy()；</li>
+<li>sort()；</li>
+<li>equal_range()；</li>
+<li>merge()；<br>STL 中的所有算法都是基于模板实现的。</li>
+</ul>
+<hr>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>通俗来讲，迭代器就是指示器。迭代器技术能够使程序非常快捷地实现对 STL 容器中内容的反复访问。反复访问意味着一次可以访问一个或多个元素。</p>
+<p>迭代器为访问容器提供了通用的方法，类似于 C++ 的指针。当参数化类型是 C++ 内部类型时，迭代器即 C++ 指针。</p>
+<p>STL 定义了 5 种类型的指示器，并根据其使用方法予以命名。每种容器都支持某种类别的迭代器。常见的迭代器包括输入、输出、前向、双向和随机接入等类别：</p>
+<ul>
+<li>输入迭代器主要用于为程序中需要的数据源提供输入接口，此处的数据源一般指容器、数据流等。输入迭代器只能从一个序列中读取数值。该迭代器可以被修改和被引用。</li>
+<li>输出迭代器主要用于输出程序中已经得到的数据结果（容器，数据流）。输出迭代器只能向一个序列写入数据。该迭代器也可以被修改和被引用。</li>
+<li>双向迭代器既可以用来读又可以用来写，它与前向迭代器相类似。双向迭代器可以同时进行前向和后向元素操作。所有 STL 容器都提供了双向迭代器功能，这既有利于数据的写入和读出，又有利于提供更加灵活的数据操作。</li>
+<li>有的容器甚至提供了随机接入迭代器。随机接人迭代器可以通过跳跃的方式访问容器中的任意数据，使数据的访问非常灵活。随机访问迭代器具有双向迭代器的所有功能，是功能最强大的迭代器类型。</li>
+</ul>
+<p>迭代器的诞生使算法和容器分离成为可能。算法是模板，其类型依赖于迭代器，不会局限于单一容器。不同的 STL 算法需要不同类型的迭代器来实现相应的功能。因为不同类型的 STL 容器支持不同类型的迭代器，所以不能对所有容器使用相同的算法。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/C-STL/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ASCII-码表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1880,88 +2020,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/08/31/寄存器/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-汇编基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/31/汇编基础知识/">汇编基础知识</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/31/汇编基础知识/" class="archive-article-date">
-  	<time datetime="2019-08-30T23:55:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.寄存器，是CPU中可以存储数据的器件，一个CPU中有多个寄存器，例如：AX，BX….等。</p>
-<p>2.汇编语言有以下3类指令组成<br>    （1）汇编指令：机器码的助记符，有对应的机器码<br>    （2）伪指令：没有对应的机器码，有编译器执行，计算机并不执行<br>    （3）其他符号：如 “+”、“-”、“*”、“/”等，由编译器识别，没有对应的机器码</p>
-<p>3.计算机的最小信息单位是bit (一个二进制位) ，8个bit组成一个Byte (字节)，计算机存储器单元可以存储一个Byte，即8个二进制位，存储器的容量是以字节为最小单位来计算的。</p>
-<p>4.CPU要想进行数据的读写，必须和外部芯片进行以下3类信息交互<br>    （1）存储单元的地址（地址信息）<br>    （2）器件的选择，读或写的命令（控制信息）<br>    （3）读或写的数据（数据信息）</p>
-<p>5.CPU是通过地址总线来指定存储器单元的，一个CPU有N根地址线，则可以说这个CPU的地址总线的宽度为N，这样的CPU最多可以寻找2的N次方个内存单元，另一方面说，存储器中的存储单元都处于一个统一的逻辑存储器（内存地址空间）中，它的容量受CPU寻址能力的限制</p>
-<p>6.CPU与内存或其他器件之间的数据传送是通过数据总线来进行的，数据总线的宽度决定了CPU和外界的数据传送速度（例如：8根数据总线一次可传送一个8位二进制数据即一个字节）</p>
-<p>7.CPU对外部器件的控制是通过控制总线来进行的，有多少根控制总线，就意味着CPU提供了对外部器件的多少种控制，控制总线的宽度决定了CPU对外部器件的控制能力</p>
-<p>8.CPU引出的3种总线的宽度标志了这个CPU的不同方面的性能<br>     （1）地址总线的宽度决定了CPU的寻址能力<br>     （2）数据总线的宽度决定了CPU与其他器件进行数据传送时的一次数据传送量<br>     （3）控制总线的宽度决定了CPU对系统中其他器件的控制能力</p>
-<p>9.存储器芯片从物理连接上是独立的、不同的器件，从读写上分为两类<br>     （1）随机存储器（RAM）<br>     （2）只读存储器（ROM）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/汇编//" class="article-tag-list-link color3">汇编</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/31/汇编基础知识/">展开全文 >></a>
         </p>
       
 
