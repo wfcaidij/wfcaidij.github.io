@@ -158,6 +158,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-寄存器（内存访问）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/31/寄存器（内存访问）/">寄存器（内存访问）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/31/寄存器（内存访问）/" class="archive-article-date">
+  	<time datetime="2019-08-31T00:17:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.CPU中用16位寄存器来存储一个字，高8位存放高位字节，低8位存放低位字节。在内存中存储时，由于内存单元是字节单元（一个单元存放一个字节），则一个字要用两个地址连续的内存单元来存放，这个字的低位字节存放在低地址单元中，高位字节存放在高地址单元中。</p>
+<p>2.8086CPU中有DS寄存器，通常用来存放要访问数据的段地址，可以使用mov指令将一个内存单元中的内容送入一个寄存器中，例如：mov bx,1000H    mov ds,bx   mov al,[0] ，指令的格式是：mov  寄存器名 ，内存单元地址。”[ …]”表示一个内存单元，“[….]”中的0表示内存单元的偏移地址</p>
+<p>3.8086CPU不支持将数据直接送入段寄存器的操作，ds是一个段寄存器，所以 mov ds,1000H这条指令是非法的，只能用一个寄存器来进行中转，先将1000H送入一个一般寄存器，再将寄存器的内容送入ds 中</p>
+<p>4.mov 指令可以有以下几种形式<br>    mov 寄存器，数据    比如：mov ax,8<br>    mov 寄存器，寄存器    比如：mov ax,bx<br>    mov 寄存器，内存单元    比如：mov ax,[0]<br>    mov 内存单元，寄存器    比如：mov [0],ax<br>    mov 段寄存器，寄存器    比如：mov ds,ax</p>
+<p>5.add 和 sub指令有以下几种形式<br>    add 寄存器，数据    比如：add ax,8<br>    add 寄存器，寄存器    比如：add ax,bx<br>    add 寄存器，内存单元    比如：add ax,[0]<br>    add 内存单元，寄存器    比如：add [0],ax<br>    sub 寄存器，数据    比如：sub ax,9<br>    sub 寄存器，寄存器    比如：sub ax,bx<br>    sub 寄存器，内存单元    比如：sub ax,[0]<br>    sub 内存单元，寄存器    比如：sub [0],ax</p>
+<p>6.8086CPU提供栈操作机制，在SS、SP中存放栈顶的段地址和偏移地址，提供入栈和出栈指令，它们根据SS:SP指示的地址，按照栈的方式访问内存单元</p>
+<p>7.push指令的执行步骤：（1）SP=SP-2  （2）向SS:SP指向的字单元中送入数据</p>
+<pre><code>指令格式为：push 寄存器      将一个寄存器中的数据入栈</code></pre><p>8.pop指令的执行步骤：（1）从SS:SP指向的字单元中读取数据 （2）SP=SP+2</p>
+<pre><code>指令格式为：pop 寄存器        出栈，用一个寄存器接收出栈的数据</code></pre><p>9.任意时刻，SS:SP指向栈顶元素</p>
+<p>10.8086CPU只记录栈顶，占空间的大小我们要自己管理</p>
+<p>11.用栈来暂存以后需要恢复的寄存器的内容时，寄存器出栈的顺序要和入栈顺序相反</p>
+<p>12.push、pop实质上是一种内存传送指令</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/汇编//" class="article-tag-list-link color3">汇编</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/31/寄存器（内存访问）/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-寄存器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
