@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href>
-  <title>Category: C++ | Object博客</title>
+  <title>C++ 派生类覆盖重载基类函数 | Object博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Object博客">
-<meta property="og:url" content="/categories/C/page/2/index.html">
+  <meta name="description" content="原文链接：https://www.cnblogs.com/azbane/p/11073125.html 派生类希望基类重载函数可见，情况有三种：a. 派生类中覆盖某个版本，则某个版本可见，全部都覆盖重写，则全部版本可见。 b. 派生类中一个也不覆盖，则全部基类版本可见。 c. 派生类需要添加新的重载版本，同时又需要可见基类的重载版本，此时并不是必须全部覆盖重写全部版本。可在派生类中用using声明">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 派生类覆盖重载基类函数">
+<meta property="og:url" content="/2019/12/17/C-派生类覆盖重载基类函数/index.html">
 <meta property="og:site_name" content="Object博客">
+<meta property="og:description" content="原文链接：https://www.cnblogs.com/azbane/p/11073125.html 派生类希望基类重载函数可见，情况有三种：a. 派生类中覆盖某个版本，则某个版本可见，全部都覆盖重写，则全部版本可见。 b. 派生类中一个也不覆盖，则全部基类版本可见。 c. 派生类需要添加新的重载版本，同时又需要可见基类的重载版本，此时并不是必须全部覆盖重写全部版本。可在派生类中用using声明">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-17T09:07:50.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Object博客">
+<meta name="twitter:title" content="C++ 派生类覆盖重载基类函数">
+<meta name="twitter:description" content="原文链接：https://www.cnblogs.com/azbane/p/11073125.html 派生类希望基类重载函数可见，情况有三种：a. 派生类中覆盖某个版本，则某个版本可见，全部都覆盖重写，则全部版本可见。 b. 派生类中一个也不覆盖，则全部基类版本可见。 c. 派生类需要添加新的重载版本，同时又需要可见基类的重载版本，此时并不是必须全部覆盖重写全部版本。可在派生类中用using声明">
   
     <link rel="alternative" href="/atom.xml" title="Object博客" type="application/atom+xml">
   
@@ -156,37 +160,46 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-C-派生类覆盖重载基类函数" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/28/C-iostream详解/" class="archive-article-date">
-  	<time datetime="2019-08-28T00:49:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-28</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/28/C-iostream详解/">C++ iostream详解</a>
+    <h1 class="article-title" itemprop="name">
+      C++ 派生类覆盖重载基类函数
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2019/12/17/C-派生类覆盖重载基类函数/" class="archive-article-date">
+  	<time datetime="2019-12-17T09:02:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文链接：<a href="https://www.cnblogs.com/azbane/p/11073125.html" target="_blank" rel="noopener">https://www.cnblogs.com/azbane/p/11073125.html</a></p>
+<h3 id="派生类希望基类重载函数可见，情况有三种："><a href="#派生类希望基类重载函数可见，情况有三种：" class="headerlink" title="派生类希望基类重载函数可见，情况有三种："></a>派生类希望基类重载函数可见，情况有三种：</h3><p>a. 派生类中覆盖某个版本，则某个版本可见，全部都覆盖重写，则全部版本可见。</p>
+<p>b. 派生类中一个也不覆盖，则全部基类版本可见。</p>
+<p>c. 派生类需要添加新的重载版本，同时又需要可见基类的重载版本，此时并不是必须全部覆盖重写全部版本。可在派生类中用using声明基类重载的函数。</p>
+<p>说明：对派生类没有重新定义的重载版本的访问实际上是对using声明点的访问。</p>
+<h3 id="两种注意点："><a href="#两种注意点：" class="headerlink" title="两种注意点："></a>两种注意点：</h3><p>a. 指向派生类的基类指针或引用，不可调用派生类中的重载函数。<br>  原因：静态编译名字查找先于类型检查，在基类中找到同名函数，就不喊在派生类中继续找，而基类不存在目标调用形式的函数</p>
+<p>b. 若不用using声明基类的重载版函数，派生类对象不可调用基类的重载版本。<br>  原因：派生类的函数，隐藏了基类的同名函数。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">h----------------------</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> DEMOCLASS_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEMOCLASS_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoClass</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    DemoClass();</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">char</span>)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DerivedClass</span>:</span><span class="keyword">public</span> DemoClass</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">     <span class="keyword">using</span> DemoClass::func;</span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="built_in">string</span>)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// DEMOCLASS_H</span></span></span><br><span class="line"></span><br><span class="line">cpp---------------------------</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"democlass.h"</span></span></span><br><span class="line"></span><br><span class="line">DemoClass::DemoClass()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"construct..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> DemoClass::func(<span class="keyword">int</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"DemoClass func(int)..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> DemoClass::func(<span class="keyword">char</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"DemoClass func(char)..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> DerivedClass::func(<span class="built_in">string</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"DerivedClass func(string)..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main----------------------</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QCoreApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"democlass.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QCoreApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    DemoClass *demo;</span><br><span class="line">    DerivedClass derived;</span><br><span class="line">    demo = &amp;derived;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"...Demo object that point to Derived access func..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    demo-&gt;func(<span class="number">1</span>);</span><br><span class="line">    demo-&gt;func(<span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>&lt;&lt;<span class="string">"...derived object access func..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    derived.func(<span class="number">1</span>);</span><br><span class="line">    derived.func(<span class="string">'a'</span>);</span><br><span class="line">    derived.func(<span class="string">"abc"</span>);</span><br><span class="line">    <span class="keyword">return</span> a.exec();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">运行结果--------------------</span><br><span class="line">construct...</span><br><span class="line">...Demo object that point to Derived access func...</span><br><span class="line">DemoClass func(int)...</span><br><span class="line">DemoClass func(char)...</span><br><span class="line"></span><br><span class="line">...derived object access func...</span><br><span class="line">DemoClass func(int)...</span><br><span class="line">DemoClass func(char)...</span><br><span class="line">DerivedClass func(string)...</span><br></pre></td></tr></table></figure>
+
+<h3 id="覆盖"><a href="#覆盖" class="headerlink" title="覆盖"></a>覆盖</h3><p>基类虚构函数被子类函数重写或者覆盖。<br>结论：覆盖是指派生类函数覆盖基类函数<br>补充：特征是：<br>       （1）不同的范围（分别位于派生类与基类）；<br>       （2）函数名字相同；<br>       （3）参数相同；<br>       （4）基类函数必须有virtual 关键字。</p>
+<h3 id="隐藏"><a href="#隐藏" class="headerlink" title="隐藏"></a>隐藏</h3><p>隐藏比如父类有一非虚函数，子类又重写改写了它，那么父类该函数就被隐藏了。调用子类对象的该函数，就只会调用子类的该函数。<br>解释：<br>（1）如果派生类的函数与基类的函数同名，但是参数不同。此时，不论有无virtual<br>关键字，基类的函数将被隐藏（注意别与重载混淆）。<br>（2）如果派生类的函数与基类的函数同名，并且参数也相同，但是基类函数没有virtual<br>关键字。此时，基类的函数被隐藏（注意别与覆盖混淆）。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -199,58 +212,116 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/2019/12/17/C-派生类覆盖重载基类函数/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/27/C-cin方法小结/" class="archive-article-date">
-  	<time datetime="2019-08-27T01:28:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-27</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/13/如何让相同签名的C-函数返回不同数据类型/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何让相同签名的C++函数返回不同数据类型</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/27/C-cin方法小结/">C++ cin方法小结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#派生类希望基类重载函数可见，情况有三种："><span class="toc-number">1.</span> <span class="toc-text">派生类希望基类重载函数可见，情况有三种：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两种注意点："><span class="toc-number">2.</span> <span class="toc-text">两种注意点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#覆盖"><span class="toc-number">3.</span> <span class="toc-text">覆盖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐藏"><span class="toc-number">4.</span> <span class="toc-text">隐藏</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/categories/C/">&laquo; Prev</a><a class="page-number" href="/categories/C/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -274,10 +345,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
