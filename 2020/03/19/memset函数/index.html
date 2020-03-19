@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href>
-  <title>Category: C++ | Object博客</title>
+  <title>memset函数 | Object博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Object博客">
-<meta property="og:url" content="/categories/C/page/2/index.html">
+  <meta name="description" content="原文转载：https://www.cnblogs.com/yhlboke-1992/p/9292877.html memset 函数是内存赋值函数，用来给某一块内存空间进行赋值的；包含在&amp;lt;string.h&amp;gt;头文件中,可以用它对一片内存空间逐字节进行初始化；原型为 ：void *memset(void *s, int v, size_t n);这里s可以是数组名，也可以是指向某一内在空间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="memset函数">
+<meta property="og:url" content="/2020/03/19/memset函数/index.html">
 <meta property="og:site_name" content="Object博客">
+<meta property="og:description" content="原文转载：https://www.cnblogs.com/yhlboke-1992/p/9292877.html memset 函数是内存赋值函数，用来给某一块内存空间进行赋值的；包含在&amp;lt;string.h&amp;gt;头文件中,可以用它对一片内存空间逐字节进行初始化；原型为 ：void *memset(void *s, int v, size_t n);这里s可以是数组名，也可以是指向某一内在空间">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="/2020/03/19/memset函数/art1.png">
+<meta property="og:image" content="/2020/03/19/memset函数/art2.png">
+<meta property="og:updated_time" content="2020-03-19T03:31:46.175Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Object博客">
+<meta name="twitter:title" content="memset函数">
+<meta name="twitter:description" content="原文转载：https://www.cnblogs.com/yhlboke-1992/p/9292877.html memset 函数是内存赋值函数，用来给某一块内存空间进行赋值的；包含在&amp;lt;string.h&amp;gt;头文件中,可以用它对一片内存空间逐字节进行初始化；原型为 ：void *memset(void *s, int v, size_t n);这里s可以是数组名，也可以是指向某一内在空间">
+<meta name="twitter:image" content="/2020/03/19/memset函数/art1.png">
   
     <link rel="alternative" href="/atom.xml" title="Object博客" type="application/atom+xml">
   
@@ -156,37 +163,46 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-memset函数" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      memset函数
+    </h1>
+  
+
+        
+        <a href="/2020/03/19/memset函数/" class="archive-article-date">
+  	<time datetime="2020-03-19T03:08:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-19</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文转载：<a href="https://www.cnblogs.com/yhlboke-1992/p/9292877.html" target="_blank" rel="noopener">https://www.cnblogs.com/yhlboke-1992/p/9292877.html</a></p>
+<p>memset 函数是内存赋值函数，用来给某一块内存空间进行赋值的；<br>包含在&lt;string.h&gt;头文件中,可以用它对一片内存空间逐字节进行初始化；<br>原型为 ：<br>void *memset(void *s, int v, size_t n);<br>这里s可以是数组名，也可以是指向某一内在空间的指针；<br>v为要填充的值；<br>n为要填充的字节数；<br>例子1：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">data</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">char</span> num[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">char</span> name[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">int</span>  n;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">data</span>  <span class="title">a</span>, <span class="title">b</span>[10];</span></span><br><span class="line">  </span><br><span class="line"><span class="built_in">memset</span>( &amp;a, <span class="number">0</span>, <span class="keyword">sizeof</span>(a) ); <span class="comment">//注意第一个参数是指针类型，a不是指针变量，要加&amp;</span></span><br><span class="line"><span class="built_in">memset</span>( b, <span class="number">0</span>, <span class="keyword">sizeof</span>(b) );  <span class="comment">//b是数组名，就是指针类型，不需要加&amp;</span></span><br></pre></td></tr></table></figure>
+
+<p>例2：<br>char str[9];<br>我们用memset给str初始化为“00000000”，用法如下<br>memset(str,0,8);<br>注意，memset是逐字节 拷贝的。</p>
+<p>例3：<br>int num[8];<br>我们用memset给str初始化为{1,1,1,1,1,1,1,1}，<br>memset(num,1,8);//这样是不对的<br>一个int是4个字节的，8个int是32个字节，所以首先要赋值的长度就不应该为8而是32。<br>因为memset是 逐字节 拷贝，以num为首地址的8字节空间都被赋值为1，<br>即一个int变为0X00000001 00000001 00000001 00000001，显然，把这个数化为十进制不会等于1的。</p>
+<p><img src="/2020/03/19/memset函数/art1.png" alt><br><img src="/2020/03/19/memset函数/art2.png" alt></p>
+<p>所以，在memset使用时要千万小心，在给char以外的数组赋值时，只能初始化为0或者-1。<br>（如果用memset(a,1,20);就是对a指向的内存的20个字节进行赋值，每个都用ASCII为1的字符去填充，转为二进制后，1就是00000001,占一个字节。一个INT元素是4字节，合一起就是1000000010000000100000001，就等于16843009，就完成了对一个INT元素的赋值了。）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory.h&gt; //我试了一下，C语言这么用，C++还可以用&lt;cstring&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">( <span class="keyword">void</span> )</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"> <span class="keyword">char</span> buffer[] = <span class="string">"This is a test of the memset function"</span>; </span><br><span class="line"> <span class="built_in">printf</span>( <span class="string">"Before: %s\n"</span>, buffer );</span><br><span class="line"> <span class="built_in">memset</span>( buffer, <span class="string">'*'</span>, <span class="number">4</span> );</span><br><span class="line"> <span class="built_in">printf</span>( <span class="string">"After: %s\n"</span>, buffer );</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出:<br>Before: This is a test of the memset function<br>After: **** is a test of the memset function </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/05/C-引用与指针的区别/" class="archive-article-date">
-  	<time datetime="2019-09-05T06:27:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/05/C-引用与指针的区别/">C++引用与指针的区别</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -199,134 +215,116 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/2020/03/19/memset函数/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/04/C-学习阶段小结/" class="archive-article-date">
-  	<time datetime="2019-09-04T06:53:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/28/C-11-make-shared/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++11 make_shared</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/C-学习阶段小结/">C++学习阶段小结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/28/C-iostream详解/" class="archive-article-date">
-  	<time datetime="2019-08-28T00:49:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/28/C-iostream详解/">C++ iostream详解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/27/C-cin方法小结/" class="archive-article-date">
-  	<time datetime="2019-08-27T01:28:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-27</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/27/C-cin方法小结/">C++ cin方法小结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/categories/C/">&laquo; Prev</a><a class="page-number" href="/categories/C/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
   
 
 
@@ -350,10 +348,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",

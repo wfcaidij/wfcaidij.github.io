@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href>
-  <title>Category: C++ | Object博客</title>
+  <title>C++11 make_shared | Object博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Object博客">
-<meta property="og:url" content="/categories/C/page/2/index.html">
+  <meta name="description" content="原文链接：https://www.jianshu.com/p/03eea8262c11 make_shared的使用123shared_ptr&amp;lt;string&amp;gt; p1 = make_shared&amp;lt;string&amp;gt;(10,&apos;9&apos;);shared_ptr&amp;lt;string&amp;gt; p2 = make_shared&amp;lt;string&amp;gt;(&quot;hello&quot;);shared_ptr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++11 make_shared">
+<meta property="og:url" content="/2019/12/28/C-11-make-shared/index.html">
 <meta property="og:site_name" content="Object博客">
+<meta property="og:description" content="原文链接：https://www.jianshu.com/p/03eea8262c11 make_shared的使用123shared_ptr&amp;lt;string&amp;gt; p1 = make_shared&amp;lt;string&amp;gt;(10,&apos;9&apos;);shared_ptr&amp;lt;string&amp;gt; p2 = make_shared&amp;lt;string&amp;gt;(&quot;hello&quot;);shared_ptr">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="/2019/12/28/C-11-make-shared/art1.png">
+<meta property="og:image" content="/2019/12/28/C-11-make-shared/art2.png">
+<meta property="og:updated_time" content="2019-12-28T03:56:48.538Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Object博客">
+<meta name="twitter:title" content="C++11 make_shared">
+<meta name="twitter:description" content="原文链接：https://www.jianshu.com/p/03eea8262c11 make_shared的使用123shared_ptr&amp;lt;string&amp;gt; p1 = make_shared&amp;lt;string&amp;gt;(10,&apos;9&apos;);shared_ptr&amp;lt;string&amp;gt; p2 = make_shared&amp;lt;string&amp;gt;(&quot;hello&quot;);shared_ptr">
+<meta name="twitter:image" content="/2019/12/28/C-11-make-shared/art1.png">
   
     <link rel="alternative" href="/atom.xml" title="Object博客" type="application/atom+xml">
   
@@ -156,37 +163,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-C-11-make-shared" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++11 make_shared
+    </h1>
+  
+
+        
+        <a href="/2019/12/28/C-11-make-shared/" class="archive-article-date">
+  	<time datetime="2019-12-28T03:10:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-28</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文链接：<a href="https://www.jianshu.com/p/03eea8262c11" target="_blank" rel="noopener">https://www.jianshu.com/p/03eea8262c11</a></p>
+<h2 id="make-shared的使用"><a href="#make-shared的使用" class="headerlink" title="make_shared的使用"></a>make_shared的使用</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">string</span>&gt; p1 = make_shared&lt;<span class="built_in">string</span>&gt;(<span class="number">10</span>,<span class="string">'9'</span>);</span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">string</span>&gt; p2 = make_shared&lt;<span class="built_in">string</span>&gt;(<span class="string">"hello"</span>);</span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">string</span>&gt; p3 = make_shared&lt;<span class="built_in">string</span>&gt;();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="尽量使用make-shared初始化"><a href="#尽量使用make-shared初始化" class="headerlink" title="尽量使用make_shared初始化"></a>尽量使用make_shared初始化</h2><p>C++11中引入了智能指针，同时还有一个模板函数std::make_shared可以返回一个指定类型的std::shared_ptr，那与std::shared_ptr的构造函数相比它能给我们带来什么好处呢？</p>
+<h3 id="make-shared初始化的优点"><a href="#make-shared初始化的优点" class="headerlink" title="make_shared初始化的优点"></a>make_shared初始化的优点</h3><h4 id="1、提高性能"><a href="#1、提高性能" class="headerlink" title="1、提高性能"></a>1、提高性能</h4><p>shared_ptr需要维护引用计数的信息：<br>强引用，用来记录当前有多少个存活的shared_ptr正持有该对象，共享的对象会在最后一个强引用离开的时候销毁（也可能释放）。<br>弱引用，用来记录当前有多少个正在观察该对象的weak_ptrs。当最后一个弱引用离开的时候，共享的内部信息控制块会被销毁和释放（共享的对象也会被释放，如果还没有释放的话）。<br>如果你通过使用原始的new表达式分配对象，然后传递给shared_ptr(也就是使用shared_ptr的构造函数)的话，shared_ptr的实现没有办法选择，而只能单独的分配控制块。<br><img src="/2019/12/28/C-11-make-shared/art1.png" alt></p>
+<p>如果选择使用make_shared的话，情况就会变成下面这样<br><img src="/2019/12/28/C-11-make-shared/art2.png" alt></p>
+<p>std::make_shared(比起直接使用new)的一个特性是能提升效率。使用std::mark_shared允许编译器产生更小，更快的代码，产生的代码使用更简洁的数据结构。考虑下面直接使用new的代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;widget&gt; spw(<span class="keyword">new</span> Widget);</span><br></pre></td></tr></table></figure>
+
+<p>很明显这段代码需要分配内存，但是它实际上要分配两次，每个std::shared_ptr都指向一个控制块，控制块包含被指向对象的引用计数以及其他东西，这个控制块的内存是在std::shared_ptr的构造函数中分配的。因此直接使用new，需要一块内存分配给Wiget，还要一块内存分配给控制块。</p>
+<p>如果使用std::make_shared来替换</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> spw = <span class="built_in">std</span>::make_shared&lt;Widget&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>一次分配就足够了。这是因为std::mark_shared申请一个单独的内存块来同时存放Widget对象和控制块。这个优化减少了程序的静态大小，因为代码只包含一次内存分配的调用，并且这会加快代码的执行速度，因为内存只分配了一次，另外，使用std::make_shared消除了一些控制块需要记录的信息，这样潜在地减少了程序的总内存占用。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/05/C-引用与指针的区别/" class="archive-article-date">
-  	<time datetime="2019-09-05T06:27:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/05/C-引用与指针的区别/">C++引用与指针的区别</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -199,134 +219,125 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/2019/12/28/C-11-make-shared/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/04/C-学习阶段小结/" class="archive-article-date">
-  	<time datetime="2019-09-04T06:53:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/03/19/memset函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          memset函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/12/17/C-派生类覆盖重载基类函数/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++ 派生类覆盖重载基类函数</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/C-学习阶段小结/">C++学习阶段小结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#make-shared的使用"><span class="toc-number">1.</span> <span class="toc-text">make_shared的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尽量使用make-shared初始化"><span class="toc-number">2.</span> <span class="toc-text">尽量使用make_shared初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#make-shared初始化的优点"><span class="toc-number">2.1.</span> <span class="toc-text">make_shared初始化的优点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、提高性能"><span class="toc-number">2.1.1.</span> <span class="toc-text">1、提高性能</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/28/C-iostream详解/" class="archive-article-date">
-  	<time datetime="2019-08-28T00:49:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/28/C-iostream详解/">C++ iostream详解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/27/C-cin方法小结/" class="archive-article-date">
-  	<time datetime="2019-08-27T01:28:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-27</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/27/C-cin方法小结/">C++ cin方法小结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/categories/C/">&laquo; Prev</a><a class="page-number" href="/categories/C/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
   
 
 
@@ -350,10 +361,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",

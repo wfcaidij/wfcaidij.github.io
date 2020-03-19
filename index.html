@@ -158,6 +158,178 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-memset函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/19/memset函数/">memset函数</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/19/memset函数/" class="archive-article-date">
+  	<time datetime="2020-03-19T03:08:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文转载：<a href="https://www.cnblogs.com/yhlboke-1992/p/9292877.html" target="_blank" rel="noopener">https://www.cnblogs.com/yhlboke-1992/p/9292877.html</a></p>
+<p>memset 函数是内存赋值函数，用来给某一块内存空间进行赋值的；<br>包含在&lt;string.h&gt;头文件中,可以用它对一片内存空间逐字节进行初始化；<br>原型为 ：<br>void *memset(void *s, int v, size_t n);<br>这里s可以是数组名，也可以是指向某一内在空间的指针；<br>v为要填充的值；<br>n为要填充的字节数；<br>例子1：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">data</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">char</span> num[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">char</span> name[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">int</span>  n;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">data</span>  <span class="title">a</span>, <span class="title">b</span>[10];</span></span><br><span class="line">  </span><br><span class="line"><span class="built_in">memset</span>( &amp;a, <span class="number">0</span>, <span class="keyword">sizeof</span>(a) ); <span class="comment">//注意第一个参数是指针类型，a不是指针变量，要加&amp;</span></span><br><span class="line"><span class="built_in">memset</span>( b, <span class="number">0</span>, <span class="keyword">sizeof</span>(b) );  <span class="comment">//b是数组名，就是指针类型，不需要加&amp;</span></span><br></pre></td></tr></table></figure>
+
+<p>例2：<br>char str[9];<br>我们用memset给str初始化为“00000000”，用法如下<br>memset(str,0,8);<br>注意，memset是逐字节 拷贝的。</p>
+<p>例3：<br>int num[8];<br>我们用memset给str初始化为{1,1,1,1,1,1,1,1}，<br>memset(num,1,8);//这样是不对的<br>一个int是4个字节的，8个int是32个字节，所以首先要赋值的长度就不应该为8而是32。<br>因为memset是 逐字节 拷贝，以num为首地址的8字节空间都被赋值为1，<br>即一个int变为0X00000001 00000001 00000001 00000001，显然，把这个数化为十进制不会等于1的。</p>
+<p><img src="/2020/03/19/memset函数/art1.png" alt><br><img src="/2020/03/19/memset函数/art2.png" alt></p>
+<p>所以，在memset使用时要千万小心，在给char以外的数组赋值时，只能初始化为0或者-1。<br>（如果用memset(a,1,20);就是对a指向的内存的20个字节进行赋值，每个都用ASCII为1的字符去填充，转为二进制后，1就是00000001,占一个字节。一个INT元素是4字节，合一起就是1000000010000000100000001，就等于16843009，就完成了对一个INT元素的赋值了。）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory.h&gt; //我试了一下，C语言这么用，C++还可以用&lt;cstring&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">( <span class="keyword">void</span> )</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"> <span class="keyword">char</span> buffer[] = <span class="string">"This is a test of the memset function"</span>; </span><br><span class="line"> <span class="built_in">printf</span>( <span class="string">"Before: %s\n"</span>, buffer );</span><br><span class="line"> <span class="built_in">memset</span>( buffer, <span class="string">'*'</span>, <span class="number">4</span> );</span><br><span class="line"> <span class="built_in">printf</span>( <span class="string">"After: %s\n"</span>, buffer );</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出:<br>Before: This is a test of the memset function<br>After: **** is a test of the memset function </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/19/memset函数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C-11-make-shared" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/28/C-11-make-shared/">C++11 make_shared</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/28/C-11-make-shared/" class="archive-article-date">
+  	<time datetime="2019-12-28T03:10:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文链接：<a href="https://www.jianshu.com/p/03eea8262c11" target="_blank" rel="noopener">https://www.jianshu.com/p/03eea8262c11</a></p>
+<h2 id="make-shared的使用"><a href="#make-shared的使用" class="headerlink" title="make_shared的使用"></a>make_shared的使用</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">string</span>&gt; p1 = make_shared&lt;<span class="built_in">string</span>&gt;(<span class="number">10</span>,<span class="string">'9'</span>);</span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">string</span>&gt; p2 = make_shared&lt;<span class="built_in">string</span>&gt;(<span class="string">"hello"</span>);</span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">string</span>&gt; p3 = make_shared&lt;<span class="built_in">string</span>&gt;();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="尽量使用make-shared初始化"><a href="#尽量使用make-shared初始化" class="headerlink" title="尽量使用make_shared初始化"></a>尽量使用make_shared初始化</h2><p>C++11中引入了智能指针，同时还有一个模板函数std::make_shared可以返回一个指定类型的std::shared_ptr，那与std::shared_ptr的构造函数相比它能给我们带来什么好处呢？</p>
+<h3 id="make-shared初始化的优点"><a href="#make-shared初始化的优点" class="headerlink" title="make_shared初始化的优点"></a>make_shared初始化的优点</h3><h4 id="1、提高性能"><a href="#1、提高性能" class="headerlink" title="1、提高性能"></a>1、提高性能</h4><p>shared_ptr需要维护引用计数的信息：<br>强引用，用来记录当前有多少个存活的shared_ptr正持有该对象，共享的对象会在最后一个强引用离开的时候销毁（也可能释放）。<br>弱引用，用来记录当前有多少个正在观察该对象的weak_ptrs。当最后一个弱引用离开的时候，共享的内部信息控制块会被销毁和释放（共享的对象也会被释放，如果还没有释放的话）。<br>如果你通过使用原始的new表达式分配对象，然后传递给shared_ptr(也就是使用shared_ptr的构造函数)的话，shared_ptr的实现没有办法选择，而只能单独的分配控制块。<br><img src="/2019/12/28/C-11-make-shared/art1.png" alt></p>
+<p>如果选择使用make_shared的话，情况就会变成下面这样<br><img src="/2019/12/28/C-11-make-shared/art2.png" alt></p>
+<p>std::make_shared(比起直接使用new)的一个特性是能提升效率。使用std::mark_shared允许编译器产生更小，更快的代码，产生的代码使用更简洁的数据结构。考虑下面直接使用new的代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;widget&gt; spw(<span class="keyword">new</span> Widget);</span><br></pre></td></tr></table></figure>
+
+<p>很明显这段代码需要分配内存，但是它实际上要分配两次，每个std::shared_ptr都指向一个控制块，控制块包含被指向对象的引用计数以及其他东西，这个控制块的内存是在std::shared_ptr的构造函数中分配的。因此直接使用new，需要一块内存分配给Wiget，还要一块内存分配给控制块。</p>
+<p>如果使用std::make_shared来替换</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> spw = <span class="built_in">std</span>::make_shared&lt;Widget&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>一次分配就足够了。这是因为std::mark_shared申请一个单独的内存块来同时存放Widget对象和控制块。这个优化减少了程序的静态大小，因为代码只包含一次内存分配的调用，并且这会加快代码的执行速度，因为内存只分配了一次，另外，使用std::make_shared消除了一些控制块需要记录的信息，这样潜在地减少了程序的总内存占用。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/28/C-11-make-shared/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C-派生类覆盖重载基类函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2302,215 +2474,9 @@
 
 
   
-    <article id="post-CodeBlock处理在windows下乱码问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/CodeBlock处理在windows下乱码问题/">CodeBlock处理在windows下乱码问题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/10/CodeBlock处理在windows下乱码问题/" class="archive-article-date">
-  	<time datetime="2019-09-10T03:52:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在Settings-&gt;Editor打开，设置如下：</p>
-<p><img src="/2019/09/10/CodeBlock处理在windows下乱码问题/art1.png" alt></p>
-<p>在Settings-&gt;Compiler打开，设置如下<br>-finput-charset=UTF-8<br>-fexec-charset=GBK</p>
-<p><img src="/2019/09/10/CodeBlock处理在windows下乱码问题/art2.png" alt></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/10/CodeBlock处理在windows下乱码问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C-继承关系" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/06/C-继承关系/">C++ 继承关系</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/06/C-继承关系/" class="archive-article-date">
-  	<time datetime="2019-09-06T01:59:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原文链接：<a href="https://blog.csdn.net/lovehang99/article/details/89577993" target="_blank" rel="noopener">https://blog.csdn.net/lovehang99/article/details/89577993</a></p>
-<h3 id="继承的概念及定义"><a href="#继承的概念及定义" class="headerlink" title="继承的概念及定义"></a>继承的概念及定义</h3><h4 id="继承的概念"><a href="#继承的概念" class="headerlink" title="继承的概念"></a>继承的概念</h4><p>继承(inheritance)机制是面向对象程序设计使代码可以复用的最重要的手段，它允许程序员在保持原有类特性的基础上进行扩展，增加功能，这样产生新的类，称派生类。继承呈现了面向对象程序设计的层次结构， 体现了由简单到复杂的认知过程。以前我们接触的复用都是函数复用，继承是类设计层次的复用。</p>
-<h4 id="继承的格式"><a href="#继承的格式" class="headerlink" title="继承的格式"></a>继承的格式</h4><p><img src="/2019/09/06/C-继承关系/art1.png" alt></p>
-<h4 id="继承关系和访问限定符"><a href="#继承关系和访问限定符" class="headerlink" title="继承关系和访问限定符"></a>继承关系和访问限定符</h4><p><img src="/2019/09/06/C-继承关系/art2.png" alt></p>
-<p><img src="/2019/09/06/C-继承关系/art3.png" alt></p>
-<h4 id="继承基类成员访问方式的变化"><a href="#继承基类成员访问方式的变化" class="headerlink" title="继承基类成员访问方式的变化"></a>继承基类成员访问方式的变化</h4><p>简单地说下C++类的3种继承方式，分别是public继承，protected继承，private继承。<br>最常用的还是public继承。<strong>class默认的是private继承</strong>，它的member如果没写权限也是默认private。<strong>struct则相反，默认的是public继承</strong>。结合下面的图示和代码，对C++的继承就有了比较清晰的认识了。</p>
-<p><img src="/2019/09/06/C-继承关系/art4.png" alt></p>
-<p>总结：<br>基类private成员在派生类中无论以什么方式继承都是不可见的。这里的不可见是指基类的私有成员还是 被继承到了派生类对象中，但是语法上限制派生类对象不管在类里面还是类外面都不能去访问它。</p>
-<p>基类private成员在派生类中是不能被访问，如果基类成员不想在类外直接被访问，但需要在派生类中能 访问，就定义为protected。可以看出保护成员限定符是因继承才出现的。</p>
-<p>实际上面的表格我们进行一下总结会发现，基类的私有成员在子类都是不可见。基类的其他成员在子类 的访问方式 == Min(成员在基类的访问限定符，继承方式)，public &gt; protected &gt; private。</p>
-<p>使用关键字class时默认的继承方式是private，使用struct时默认的继承方式是public，不过最好显示的 写出继承方式。</p>
-<p>在实际运用中一般使用都是public继承，几乎很少使用protetced/private继承，也不提倡使用 protetced/private继承，因为protetced/private继承下来的成员都只能在派生类的类里面使用，实际中 扩展维护性不强。</p>
-<hr>
-<h3 id="基类和派生类对象赋值转换"><a href="#基类和派生类对象赋值转换" class="headerlink" title="基类和派生类对象赋值转换"></a>基类和派生类对象赋值转换</h3><p>派生类对象 可以赋值给 基类的对象 / 基类的指针 / 基类的引用。这里有个形象的说法叫切片或者切 割。寓意把派生类中父类那部分切来赋值过去。</p>
-<p>基类对象不能赋值给派生类对象</p>
-<p>基类的指针可以通过强制类型转换赋值给派生类的指针。但是必须是基类的指针是指向派生类对象时才是安全的。这里基类如果是多态类型，可以使用RTTI(Run-Time Type Information)的dynamic_cast 来 进行识别后进行安全转换。</p>
-<p><img src="/2019/09/06/C-继承关系/art5.png" alt></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">string</span> _name;  <span class="comment">//姓名</span></span><br><span class="line">    <span class="built_in">string</span> _sex;     <span class="comment">//性别</span></span><br><span class="line">    <span class="keyword">int</span> _age;      <span class="comment">//年龄</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> :</span> <span class="keyword">public</span> Person</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> _No;      <span class="comment">//学号</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Student sobj;</span><br><span class="line">    <span class="comment">//1.子类对象可以赋值给父类对象/指针/引用</span></span><br><span class="line">    Person pobj = sobj;</span><br><span class="line">    Person* pp = &amp;sobj;</span><br><span class="line">    Person&amp; rp = sobj;</span><br><span class="line">    <span class="comment">//2. 基类对象不能赋给派生类对象</span></span><br><span class="line">    <span class="comment">//sobj = pobj;</span></span><br><span class="line">    <span class="comment">//3. 基类的指针可以通过强制类型转换赋值给派生类</span></span><br><span class="line">    pp = &amp;pobj;</span><br><span class="line">    Student* ps1 = (Student*)pp; <span class="comment">//这种情况转化是可以的</span></span><br><span class="line">    ps1-&gt;_No =<span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    pp = &amp;pobj;</span><br><span class="line">    Student* ps2 = (Student*)pp; <span class="comment">//这种情况转化时虽然可以，但是存在越界访问</span></span><br><span class="line">    ps2-&gt;_No=<span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="继承中的作用域"><a href="#继承中的作用域" class="headerlink" title="继承中的作用域"></a>继承中的作用域</h3><p>在继承体系中基类和派生类都有独立的作用域。</p>
-<p>子类和父类中有同名成员，子类成员将屏蔽父类对同名成员的直接访问，这种情况叫隐藏，也叫重定 义。（在子类成员函数中，可以使用 基类::基类成员 显示访问）</p>
-<p>需要注意的是如果是成员函数的隐藏，只需要函数名相同就构成隐藏。</p>
-<p>注意在实际中在继承体系里面最好不要定义同名的成员。(防止出现隐藏问题)</p>
-<p>成员及成员函数的隐藏</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"haha"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> num =<span class="number">111</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P2</span> :</span> <span class="keyword">public</span> P1</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">         <span class="built_in">cout</span> &lt;&lt; <span class="string">"哈哈"</span> &lt;&lt; _num &lt;&lt;<span class="built_in">endl</span>; <span class="comment">// 输出“哈哈999”</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> _num =<span class="number">999</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    P2 p;</span><br><span class="line">    p.fun();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   Test();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>有结果可以看出基类P1中的成员_num 和成员函数fun()均被隐藏。</p>
-<hr>
-<h3 id="派生类的默认成员函数"><a href="#派生类的默认成员函数" class="headerlink" title="派生类的默认成员函数"></a>派生类的默认成员函数</h3><p>6个默认成员函数，“默认”的意思就是指我们不写，编译器会变我们自动生成一个，那么在派生类中，这几个 成员函数是如何生成的呢？</p>
-<p>1.派生类的构造函数必须调用基类的构造函数初始化基类的那一部分成员。如果基类没有默认的构造函数，则必须在派生类构造函数的初始化列表阶段显示调用。<br>2.派生类的拷贝构造函数必须调用基类的拷贝构造完成基类的拷贝初始化。<br>3.派生类的operator=必须要调用基类的operator=完成基类的复制。<br>4.派生类的析构函数会在被调用完成后自动调用基类的析构函数清理基类成员。因为这样才 能保证派生类对象先清理派生类成员再清理基类成员的顺序。<br>5.派生类对象初始化先调用基类构造再调派生类构造。<br>6.派生类对象析构清理先调用派生类析构再调基类的析构。<br><img src="/2019/09/06/C-继承关系/art6.png" alt></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    A()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"I am A"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ~A()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"goodbye A"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    B()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"I am B"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ~B()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"goodbye B"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    B b;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果：分析到，初始化子类时先调用父类的构造函数，析构子类是时先调用子类的析构函数。<br><img src="/2019/09/06/C-继承关系/art7.png" alt><br>类的6个默认成员函数的功能：<br><img src="/2019/09/06/C-继承关系/art8.png" alt><br><strong>关键字 final：</strong><br>放在类定义的类名后，表明该类不能被继承。<br>有一类题目要求你实现一个不能被继承的类。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"haha"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;   <span class="comment">//该类可以继承</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 加关键字final，使该类不能继承</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="title">final</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"haha"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="继承与友元"><a href="#继承与友元" class="headerlink" title="继承与友元"></a>继承与友元</h3><p>友元关系不能继承，也就是说基类友元不能访问子类私有和保护成员。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>;</span>   <span class="comment">//申明  注意定义顺序</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">Display</span><span class="params">(<span class="keyword">const</span> Person&amp; p, <span class="keyword">const</span> Student&amp; s)</span></span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">string</span> _name;    <span class="comment">// 姓名</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> :</span> <span class="keyword">public</span> Person</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> _stuNum; <span class="comment">// 学号</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display</span><span class="params">(<span class="keyword">const</span> Person&amp; p, <span class="keyword">const</span> Student&amp; s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; p._name &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; s.stuNum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Person p;</span><br><span class="line">    Student s;</span><br><span class="line">    Display(p,s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果：<br><img src="/2019/09/06/C-继承关系/art9.png" alt></p>
-<hr>
-<h3 id="继承与静态成员"><a href="#继承与静态成员" class="headerlink" title="继承与静态成员"></a>继承与静态成员</h3><p>基类定义了static静态成员，则整个继承体系里面只有一个这样的成员。无论派生出多少个子类，都只有一 个static成员实例 。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">string</span> _name;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> _count;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Person::_count =<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> :</span> <span class="keyword">public</span> Person</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> _stuNum;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Gradue</span> :</span> <span class="keyword">public</span> Student</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">string</span> _seminarCourse;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Student s1;</span><br><span class="line">    Student s2;</span><br><span class="line">    Student s3;</span><br><span class="line">    Gradue s4;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Person::_count &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">//输出 100</span></span><br><span class="line">    Student::_count =<span class="number">2000</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Person::_count &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">//输出 2000</span></span><br><span class="line">    Gradue::_count =<span class="number">400</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Person::_count &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">//输出 400</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="复杂的菱形继承及菱形虚拟继承"><a href="#复杂的菱形继承及菱形虚拟继承" class="headerlink" title="复杂的菱形继承及菱形虚拟继承"></a>复杂的菱形继承及菱形虚拟继承</h3><p>单继承：一个子类只有一个直接父类时称这个继承关系为单继承。<br><img src="/2019/09/06/C-继承关系/art10.png" alt><br>多继承：一个子类有两个或以上直接父类时称这个继承关系为多继承。<br><img src="/2019/09/06/C-继承关系/art11.png" alt><br>菱形继承：菱形继承是多继承的一种特殊情况。<br><img src="/2019/09/06/C-继承关系/art12.png" alt><br>菱形继承的问题：从下面的对象成员模型构造，可以看出菱形继承有数据冗余和二义性的问题。在Assistant 的对象中Person成员会有两份。<br>二义性：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> :</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> :</span> <span class="keyword">public</span> B,<span class="keyword">public</span> C</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">string</span> sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    D d;</span><br><span class="line">    <span class="comment">// 这样会有二义性，无法明确知道访问的是哪一个</span></span><br><span class="line">    <span class="comment">//d.name ="xxx";   //因为二义性编译不通过，所以注释掉</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 需要显示的指出访问的是哪个父类的成员，解决了二义性问题，但数据冗余仍未解决</span></span><br><span class="line">    d.B::name=<span class="string">"xxx"</span>;</span><br><span class="line">    d.C::name =<span class="string">"yyy"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>虚拟继承可以解决菱形继承的二义性和数据冗余的问题。如上面的继承关系，在B和C的继承 A时使用虚拟继承，即可解决问题。需要注意的是，虚拟继承不要在其他地方去使用.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> :</span> <span class="keyword">public</span> B,<span class="keyword">public</span> C</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">string</span> sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    D d;</span><br><span class="line">    d.name =<span class="string">"xxx"</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; d.name&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="继承的总结和反思"><a href="#继承的总结和反思" class="headerlink" title="继承的总结和反思"></a>继承的总结和反思</h3><p>很多人说C++语法复杂，其实多继承就是一个体现。有了多继承，就存在菱形继承，有了菱形继承就有 菱形虚拟继承，底层实现就很复杂。所以一般不建议设计出多继承，一定不要设计出菱形继承。否则在 复杂度及性能上都有问题。</p>
-<p>多继承可以认为是C++的缺陷之一，很多后来的OO语言都没有多继承，如Java。</p>
-<p>继承和组合<br>（1）public继承是一种is-a的关系。也就是说每个派生类对象都是一个基类对象。<br>（2）组合是一种has-a的关系。假设B组合了A，每个B对象中都有一个A对象。<br>（3） 优先使用对象组合，而不是类继承 。<br>（4）继承允许你根据基类类的实现来定义派生类的实现。这种通过生成派生类的复用通常被称为白箱复 用(white-box reuse)。术语“白箱”是相对可视性而言：在继承方式中，基类的内部细节对子类可见 。继承一定程度破坏了基类的封装，基类的改变，对派生类类有很大的影响。派生类和基类间的依 赖关系很强，耦合度高。<br>（5）对象组合是类继承之外的另一种复用选择。新的更复杂的功能可以通过组装或组合对象来获得。对 象组合要求被组合的对象具有良好定义的接口。这种复用风格被称为黑箱复用(black-box reuse)， 因为对象的内部细节是不可见的。对象只以“黑箱”的形式出现。 组合类之间没有很强的依赖关系， 耦合度低。优先使用对象组合有助于你保持每个类被封装。<br>（6）实际尽量多去用组合。组合的耦合度低，代码维护性好。不过继承也有用武之地的，有些关系就适 合继承那就用继承，另外要实现多态，也必须要继承。类之间的关系可以用继承，可以用组合，就用组合。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/06/C-继承关系/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -2522,7 +2488,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 Object
+    		&copy; 2020 Object
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
