@@ -158,6 +158,120 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-图解-https-单向认证和双向认证！" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/28/图解-https-单向认证和双向认证！/">图解 https 单向认证和双向认证！</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/28/图解-https-单向认证和双向认证！/" class="archive-article-date">
+  	<time datetime="2020-05-28T06:43:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文链接：<a href="https://blog.csdn.net/superviser3000/article/details/80812263" target="_blank" rel="noopener">https://blog.csdn.net/superviser3000/article/details/80812263</a></p>
+<h3 id="一、Http"><a href="#一、Http" class="headerlink" title="一、Http"></a>一、Http</h3><p>  HyperText Transfer Protocol，超文本传输协议，是互联网上使用最广泛的一种协议，所有WWW文件必须遵循的标准。HTTP协议传输的数据都是未加密的，也就是明文的，因此使用HTTP协议传输隐私信息非常不安全。<br>  使用TCP端口为：80</p>
+<hr>
+<h3 id="二、Https"><a href="#二、Https" class="headerlink" title="二、Https"></a>二、Https</h3><p>  Hyper Text Transfer Protocol over Secure Socket Layer，安全的超文本传输协议，网景公式设计了SSL(Secure Sockets Layer)协议用于对Http协议传输的数据进行加密，保证会话过程中的安全性。</p>
+<hr>
+<h3 id="三、SSL协议加密方式"><a href="#三、SSL协议加密方式" class="headerlink" title="三、SSL协议加密方式"></a>三、SSL协议加密方式</h3><p>  SSL协议即用到了对称加密也用到了非对称加密(公钥加密)，在建立传输链路时，SSL首先对对称加密的密钥使用公钥进行非对称加密，链路建立好之后，SSL对传输内容使用对称加密。</p>
+<p>对称加密<br>速度高，可加密内容较大，用来加密会话过程中的消息</p>
+<p>公钥加密<br>加密速度较慢，但能提供更好的身份认证技术，用来加密对称加密的密钥</p>
+<hr>
+<h3 id="四、单向认证"><a href="#四、单向认证" class="headerlink" title="四、单向认证"></a>四、单向认证</h3><p>  Https在建立Socket连接之前，需要进行握手，具体过程如下：<br>  <img src="%E5%9B%BE%E8%A7%A3-https-%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81%E5%92%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%EF%BC%81/art1.jpg" alt></p>
+<p>1、客户端向服务端发送SSL协议版本号、加密算法种类、随机数等信息。</p>
+<p>2、服务端给客户端返回SSL协议版本号、加密算法种类、随机数等信息，同时也返回服务器端的证书，即公钥证书</p>
+<p>3、客户端使用服务端返回的信息验证服务器的合法性，包括：</p>
+<p>证书是否过期</p>
+<p>发型服务器证书的CA是否可靠</p>
+<p>返回的公钥是否能正确解开返回证书中的数字签名</p>
+<p>服务器证书上的域名是否和服务器的实际域名相匹配</p>
+<p>验证通过后，将继续进行通信，否则，终止通信</p>
+<p>4、客户端向服务端发送自己所能支持的对称加密方案，供服务器端进行选择</p>
+<p>5、服务器端在客户端提供的加密方案中选择加密程度最高的加密方式。</p>
+<p>6、服务器将选择好的加密方案通过明文方式返回给客户端</p>
+<p>7、客户端接收到服务端返回的加密方式后，使用该加密方式生成产生随机码，用作通信过程中对称加密的密钥，使用服务端返回的公钥进行加密，将加密后的随机码发送至服务器</p>
+<p>8、服务器收到客户端返回的加密信息后，使用自己的私钥进行解密，获取对称加密密钥。 在接下来的会话中，服务器和客户端将会使用该密码进行对称加密，保证通信过程中信息的安全。</p>
+<hr>
+<h3 id="五、双向认证"><a href="#五、双向认证" class="headerlink" title="五、双向认证"></a>五、双向认证</h3><p>  双向认证和单向认证原理基本差不多，只是除了客户端需要认证服务端以外，增加了服务端对客户端的认证，具体过程如下：</p>
+<p><img src="%E5%9B%BE%E8%A7%A3-https-%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81%E5%92%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%EF%BC%81/art2.jpg" alt></p>
+<p>1、客户端向服务端发送SSL协议版本号、加密算法种类、随机数等信息。</p>
+<p>2、服务端给客户端返回SSL协议版本号、加密算法种类、随机数等信息，同时也返回服务器端的证书，即公钥证书</p>
+<p>3、客户端使用服务端返回的信息验证服务器的合法性，包括：</p>
+<p>证书是否过期</p>
+<p>发型服务器证书的CA是否可靠</p>
+<p>返回的公钥是否能正确解开返回证书中的数字签名</p>
+<p>服务器证书上的域名是否和服务器的实际域名相匹配</p>
+<p>验证通过后，将继续进行通信，否则，终止通信</p>
+<p>4、服务端要求客户端发送客户端的证书，客户端会将自己的证书发送至服务端</p>
+<p>5、验证客户端的证书，通过验证后，会获得客户端的公钥</p>
+<p>6、客户端向服务端发送自己所能支持的对称加密方案，供服务器端进行选择</p>
+<p>7、服务器端在客户端提供的加密方案中选择加密程度最高的加密方式</p>
+<p>8、将加密方案通过使用之前获取到的公钥进行加密，返回给客户端</p>
+<p>9、客户端收到服务端返回的加密方案密文后，使用自己的私钥进行解密，获取具体加密方式，而后，产生该加密方式的随机码，用作加密过程中的密钥，使用之前从服务端证书中获取到的公钥进行加密后，发送给服务端</p>
+<p>10、服务端收到客户端发送的消息后，使用自己的私钥进行解密，获取对称加密的密钥，在接下来的会话中，服务器和客户端将会使用该密码进行对称加密，保证通信过程中信息的安全。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/28/图解-https-单向认证和双向认证！/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-memset函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2198,253 +2312,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/10/11/C-C-声明、定义、初始化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-运算符的优先级和结合性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/24/运算符的优先级和结合性/">运算符的优先级和结合性</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/24/运算符的优先级和结合性/" class="archive-article-date">
-  	<time datetime="2019-09-24T07:48:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>注1：优先级相同的运算符，运算次序由结合性决定。<br>比如 3 * 4 / 5 % 6，其中乘号、除号和求余运算符在同一优先级，结合性是“左到右”，因此先计算 3 * 4，再计算 / 5，最后计算 % 6<br>再如 -i++，符号和自增运算符在同一优先级，结合性是“右到左”，因此 -i++ 相当于 -(i++)</p>
-<p>注2：* 目运算符是指操作数的个数，比如单目运算符只有一个操作数，双目运算符有两个操作数，而三目运算符则有三个操作数。</p>
-<p>注3：通过使用小括号可以提升表达式的优先级至最高。<br>比如 (1 + 2) * (3 - 4)，其中加号、减号运算符的优先级本身是要低于乘号运算符的，但由于使用了小括号，且结合性均是“左到右”，所以先计算 (1 + 2)，再计算 (3 - 4)，最后才将前两者的结果相乘</p>
-<table cellspacing="0"><tbody><tr><td width="68"><div align="left"><div align="center"><strong>优先级<br>
-</strong></div></div></td><td width="64"><div align="left"><div align="center"><strong>运算符<br>
-</strong></div></div></td><td width="126"><div align="left"><div align="center"><strong>含义<br>
-</strong></div></div></td><td width="144"><div align="left"><div align="center"><strong>使用形式<br>
-</strong></div></div></td><td width="72"><div align="left"><div align="center"><strong>结合性<br>
-</strong></div></div></td><td width="86"><div align="left"><div align="center"><strong>说明<br>
-</strong></div></div></td></tr><tr><td rowspan="6" width="68"><div align="center">1</div></td><td width="64"><div align="left"><div align="center">[ ]<br>
-</div></div></td><td width="126"><div align="left"><div align="center">数组下标<br>
-</div></div></td><td width="144"><div align="left"><div align="center">数组名[整型表达式]<br>
-</div></div></td><td rowspan="6" width="72"><div align="center">左到右<br>
-</div><div align="center">→</div></td><td width="86"><br>
-</td></tr><tr><td width="64"><div align="center">( )</div></td><td width="126"><div align="left"><div align="center">圆括号<br>
-</div></div></td><td width="144"><div align="left"><div align="center">(表达式)<br>
-</div></div></td><td width="86"><br>
-</td></tr><tr><td width="64"><div align="center">.</div></td><td width="126"><div align="left"><div align="center">成员选择（对象）<br>
-</div></div></td><td width="144"><div align="left"><div align="center">对象.成员名<br>
-</div></div></td><td width="86"><br>
-</td></tr><tr><td width="64"><div align="center">-&gt;</div></td><td width="126"><div align="left"><div align="center">成员选择（指针）<br>
-</div></div></td><td width="144"><div align="left"><div align="center">对象指针-&gt;成员名<br>
-</div></div></td><td width="86"><br>
-</td></tr><tr><td width="64"><div align="center">++</div></td><td width="126"><div align="left"><div align="center">自增运算符</div></div></td><td width="144"><div align="left"><div align="center">变量名++</div></div></td><td width="86"><div align="center">单目运算符</div></td></tr><tr><td width="64"><div align="center">--</div></td><td width="126"><div align="left"><div align="center">自减运算符</div></div></td><td width="144"><div align="left"><div align="center">变量名--</div></div></td><td width="86"><div align="center">单目运算符</div></td></tr><tr><td rowspan="9" width="68"><div align="center">2</div></td><td width="64"><div align="left"><div align="center">-<br>
-</div></div></td><td width="126"><div align="left"><div align="center">负号运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">-表达式<br>
-</div></div></td><td rowspan="9" width="72"><div align="center">右到左</div><div align="center">←</div></td><td width="86"><div align="left"><div align="center">单目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">(类型)<br>
-</div></div></td><td width="126"><div align="left"><div align="center">强制类型转换<br>
-</div></div></td><td width="144"><div align="left"><div align="center">(数据类型)表达式<br>
-</div></div></td><td width="86"><div align="center">单目运算符</div></td></tr><tr><td width="64"><div align="center">++</div></td><td width="126"><div align="left"><div align="center">自增运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">++变量名</div></div></td><td width="86"><div align="left"><div align="center">单目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">--<br>
-</div></div></td><td width="126"><div align="left"><div align="center">自减运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">--变量名</div></div></td><td width="86"><div align="left"><div align="center">单目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">*<br>
-</div></div></td><td width="126"><div align="left"><div align="center">取值运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">*指针表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">单目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">&amp;<br>
-</div></div></td><td width="126"><div align="left"><div align="center">取地址运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">&amp;左值表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">单目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">!<br>
-</div></div></td><td width="126"><div align="left"><div align="center">逻辑非运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">!表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">单目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">~<br>
-</div></div></td><td width="126"><div align="left"><div align="center">按位取反运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">~表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">单目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">sizeof<br>
-</div></div></td><td width="126"><div align="left"><div align="center">长度运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">sizeof 表达式 </div></div><div align="left"><div align="center">或</div></div><div align="left"><div align="center">sizeof(类型)<br>
-</div></div></td><td width="86"><div align="center">单目运算符</div></td></tr><tr><td rowspan="3" width="68"><div align="center">3</div></td><td width="64"><div align="left"><div align="center">/<br>
-</div></div></td><td width="126"><div align="left"><div align="center">除<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 / 表达式<br>
-</div></div></td><td rowspan="3" width="72"><div align="center">左到右</div><div align="center">→</div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">*<br>
-</div></div></td><td width="126"><div align="left"><div align="center">乘<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 * 表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">%<br>
-</div></div></td><td width="126"><div align="left"><div align="center">余数（取模）<br>
-</div></div></td><td width="144"><div align="left"><div align="center">整型表达式 % 整型表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td rowspan="2" width="68"><div align="center">4</div></td><td width="64"><div align="left"><div align="center">+<br>
-</div></div></td><td width="126"><div align="left"><div align="center">加<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 + 表达式<br>
-</div></div></td><td rowspan="2" width="72"><div align="center">左到右</div><div align="center">→</div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">-<br>
-</div></div></td><td width="126"><div align="left"><div align="center">减<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 - 表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td rowspan="2" width="68"><div align="center">5</div></td><td width="64"><div align="left"><div align="center">&lt;&lt;<br>
-</div></div></td><td width="126"><div align="left"><div align="center">左移<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 &lt;&lt; 表达式<br>
-</div></div></td><td rowspan="2" width="72"><div align="center">左到右</div><div align="center">→</div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">&gt;&gt;<br>
-</div></div></td><td width="126"><div align="left"><div align="center">右移<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 &gt;&gt; 表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td rowspan="4" width="68"><div align="center">6</div></td><td width="64"><div align="left"><div align="center">&gt;<br>
-</div></div></td><td width="126"><div align="left"><div align="center">大于<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 &gt; 表达式<br>
-</div></div></td><td rowspan="4" width="72"><div align="center">左到右</div><div align="center">→</div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">&gt;=<br>
-</div></div></td><td width="126"><div align="left"><div align="center">大于等于<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 &gt;= 表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">&lt;<br>
-</div></div></td><td width="126"><div align="left"><div align="center">小于<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 &lt; 表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">&lt;=<br>
-</div></div></td><td width="126"><div align="left"><div align="center">小于等于<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 &lt;= 表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td rowspan="2" width="68"><div align="center">7</div></td><td width="64"><div align="left"><div align="center">==<br>
-</div></div></td><td width="126"><div align="left"><div align="center">等于<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 == 表达式<br>
-</div></div></td><td rowspan="2" width="72"><div align="center">左到右</div><div align="center">→</div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="64"><div align="left"><div align="center">!=<br>
-</div></div></td><td width="126"><div align="left"><div align="center">不等于<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 != 表达式<br>
-</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="68"><div align="left"><div align="center">8<br>
-</div></div></td><td width="64"><div align="left"><div align="center">&amp;<br>
-</div></div></td><td width="126"><div align="left"><div align="center">按位与<br>
-</div></div></td><td width="144"><div align="left"><div align="center">整型表达式 &amp; 整型表达式<br>
-</div></div></td><td width="72"><div align="left"><div align="center">左到右<br>
-</div><div align="center">→</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="68"><div align="left"><div align="center">9<br>
-</div></div></td><td width="64"><div align="left"><div align="center">^<br>
-</div></div></td><td width="126"><div align="left"><div align="center">按位异或<br>
-</div></div></td><td width="144"><div align="left"><div align="center">整型表达式 ^ 整型表达式<br>
-</div></div></td><td width="72"><div align="left"><div align="center">左到右<br>
-</div><div align="center">→</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="68"><div align="left"><div align="center">10<br>
-</div></div></td><td width="64"><div align="left"><div align="center">|<br>
-</div></div></td><td width="126"><div align="left"><div align="center">按位或<br>
-</div></div></td><td width="144"><div align="left"><div align="center">整型表达式 | 整型表达式<br>
-</div></div></td><td width="72"><div align="left"><div align="center">左到右<br>
-</div><div align="center">→</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="68"><div align="left"><div align="center">11<br>
-</div></div></td><td width="64"><div align="left"><div align="center">&amp;&amp;<br>
-</div></div></td><td width="126"><div align="left"><div align="center">逻辑与<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 &amp;&amp; 表达式<br>
-</div></div></td><td width="72"><div align="left"><div align="center">左到右<br>
-</div><div align="center">→</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="68"><div align="left"><div align="center">12<br>
-</div></div></td><td width="64"><div align="left"><div align="center">||<br>
-</div></div></td><td width="126"><div align="left"><div align="center">逻辑或<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式 || 表达式<br>
-</div></div></td><td width="72"><div align="left"><div align="center">左到右<br>
-</div></div><div align="left"><div align="center">→</div></div></td><td width="86"><div align="left"><div align="center">双目运算符<br>
-</div></div></td></tr><tr><td width="68"><div align="left"><div align="center">13<br>
-</div></div></td><td width="64"><div align="left"><div align="center">?:<br>
-</div></div></td><td width="126"><div align="left"><div align="center">条件运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式1? 表达式2: 表达式3<br>
-</div></div></td><td width="72"><div align="left"><div align="center">右到左<br>
-</div></div><div align="left"><div align="center">←</div></div></td><td width="86"><div align="left"><div align="center">三目运算符<br>
-</div></div></td></tr><tr><td rowspan="11" width="68"><div align="center">14</div></td><td width="64"><div align="left"><div align="center">=<br>
-</div></div></td><td width="126"><div align="left"><div align="center">赋值运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 = 表达式<br>
-</div></div></td><td rowspan="11" width="72"><div align="center">右到左<br>
-←</div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">/=</div></td><td width="126"><div align="left"><div align="center">除后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 /= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">*=</div></td><td width="126"><div align="left"><div align="center">乘后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 *= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">%=</div></td><td width="126"><div align="left"><div align="center">取模后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 %= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">+=</div></td><td width="126"><div align="left"><div align="center">加后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 += 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">-=</div></td><td width="126"><div align="left"><div align="center">减后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 -= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">&lt;&lt;=</div></td><td width="126"><div align="left"><div align="center">左移后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 &lt;&lt;= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">&gt;&gt;=</div></td><td width="126"><div align="left"><div align="center">右移后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 &gt;&gt;= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">&amp;=</div></td><td width="126"><div align="left"><div align="center">按位与后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 &amp;= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">^=</div></td><td width="126"><div align="left"><div align="center">按位异或后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 ^= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="64"><div align="center">|=</div></td><td width="126"><div align="left"><div align="center">按位或后赋值<br>
-</div></div></td><td width="144"><div align="left"><div align="center">变量 |= 表达式<br>
-</div></div></td><td width="86"><div align="center">双目运算符</div></td></tr><tr><td width="68"><div align="center">15</div></td><td width="64"><div align="left"><div align="center">,<br>
-</div></div></td><td width="126"><div align="left"><div align="center">逗号运算符<br>
-</div></div></td><td width="144"><div align="left"><div align="center">表达式1,表达式2,表达式3,…<br>
-</div></div></td><td width="72"><div align="left"><div align="center">左到右<br>
-</div></div><div align="left"><div align="center">→</div></div></td><td width="86"><br>
-</td></tr></tbody></table>
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/24/运算符的优先级和结合性/">展开全文 >></a>
         </p>
       
 
