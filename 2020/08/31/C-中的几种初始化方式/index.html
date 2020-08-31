@@ -6,16 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href>
-  <title>文章分类 | Object博客</title>
+  <title>C++中的几种初始化方式 | Object博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="文章分类">
-<meta property="og:url" content="/categories/index.html">
+  <meta name="description" content="作者原文链接：https://www.jianshu.com/p/1aa7adeb7328 默认初始化如果定义了变量没有指定初值，则变量被默认初始化，此时变量被赋予了默认值，默认值到底是什么由变量类型和变量的位置决定的。默认初始化的形式： 1type variableName;  如果变量类型是类类型，则执行其默认构造函数来初始化；如果是内置类型，若其在函数内部且是非静态的，则其值是未定义的，若其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++中的几种初始化方式">
+<meta property="og:url" content="/2020/08/31/C-中的几种初始化方式/index.html">
 <meta property="og:site_name" content="Object博客">
+<meta property="og:description" content="作者原文链接：https://www.jianshu.com/p/1aa7adeb7328 默认初始化如果定义了变量没有指定初值，则变量被默认初始化，此时变量被赋予了默认值，默认值到底是什么由变量类型和变量的位置决定的。默认初始化的形式： 1type variableName;  如果变量类型是类类型，则执行其默认构造函数来初始化；如果是内置类型，若其在函数内部且是非静态的，则其值是未定义的，若其">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-24T11:04:21.191Z">
+<meta property="og:image" content="/2020/08/31/C-中的几种初始化方式/Users/wfc/Desktop/QQ%E6%88%AA%E5%9B%BE20200831102019.png">
+<meta property="og:updated_time" content="2020-08-31T02:21:38.695Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文章分类">
+<meta name="twitter:title" content="C++中的几种初始化方式">
+<meta name="twitter:description" content="作者原文链接：https://www.jianshu.com/p/1aa7adeb7328 默认初始化如果定义了变量没有指定初值，则变量被默认初始化，此时变量被赋予了默认值，默认值到底是什么由变量类型和变量的位置决定的。默认初始化的形式： 1type variableName;  如果变量类型是类类型，则执行其默认构造函数来初始化；如果是内置类型，若其在函数内部且是非静态的，则其值是未定义的，若其">
+<meta name="twitter:image" content="/2020/08/31/C-中的几种初始化方式/Users/wfc/Desktop/QQ%E6%88%AA%E5%9B%BE20200831102019.png">
   
     <link rel="alternative" href="/atom.xml" title="Object博客" type="application/atom+xml">
   
@@ -157,20 +162,186 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article class="article article-type-post show">
-  <header class="article-header" style="border-bottom: 1px solid #ccc">
-  <h1 class="article-title" itemprop="name">
-    文章分类
-  </h1>
-  </header>
+            <article id="post-C-中的几种初始化方式" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++中的几种初始化方式
+    </h1>
+  
+
+        
+        <a href="/2020/08/31/C-中的几种初始化方式/" class="archive-article-date">
+  	<time datetime="2020-08-31T02:00:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作者原文链接：<a href="https://www.jianshu.com/p/1aa7adeb7328" target="_blank" rel="noopener">https://www.jianshu.com/p/1aa7adeb7328</a></p>
+<h3 id="默认初始化"><a href="#默认初始化" class="headerlink" title="默认初始化"></a>默认初始化</h3><p>如果定义了变量没有指定初值，则变量被默认初始化，此时变量被赋予了默认值，默认值到底是什么由变量类型和变量的位置决定的。<br>默认初始化的形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type variableName;</span><br></pre></td></tr></table></figure>
+
+<p>如果变量类型是类类型，则执行其默认构造函数来初始化；如果是内置类型，若其在函数内部且是非静态的，则其值是未定义的，若其在函数外部，则为‘0’或者NULL。</p>
+<h3 id="直接初始化-构造初始化"><a href="#直接初始化-构造初始化" class="headerlink" title="直接初始化/构造初始化"></a>直接初始化/构造初始化</h3><p>使用构造函数初始化，构造初始化形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">type <span class="title">variableName</span><span class="params">(args)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="列表初始化"><a href="#列表初始化" class="headerlink" title="列表初始化"></a>列表初始化</h3><p>C++11引入了initializer_list &lt;type&gt;模板类，该模板类中的元素是const的，故当其作为实参时可以防止实参的类型转换；笔者推测这种所谓的列表初始化其实还是构造初始化，通过增加参数类型为initializer_list &lt;type&gt;的构造函数来实现，故列表初始化方式不能用于没有形参类型相同的构造函数的类。<br>列表初始化形式： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type variableName&#123;args&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="拷贝初始化"><a href="#拷贝初始化" class="headerlink" title="拷贝初始化"></a>拷贝初始化</h3><p>如果用=初始化一个变量，实际上执行的是拷贝初始化。<br>拷贝初始化形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type variableName=otherVariableName;</span><br></pre></td></tr></table></figure>
+
+<p>如果是内置类型，就是简单的拷贝；如果是类类型，则实际上是调用了拷贝构造函数来初始化。<br>或</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type variableName=type (args)</span><br></pre></td></tr></table></figure>
+
+<p>这种形式在C++Primer 这本书中解释是先创建一个临时对象，让后调用拷贝构造函数创建对象variableName,实际在IDE测试中，根本没有临时对象的创建，直接调用参数对应的构造函数，这应该是由于编译器的优化导致的。</p>
+<h3 id="值初始化"><a href="#值初始化" class="headerlink" title="值初始化"></a>值初始化</h3><p>值初始化形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">type <span class="title">variable</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是：对于类类型而言，值初始化和默认初始化是一样的，均调用类的默认构造函数；对于内置类型，值初始化会置为‘0’或者NULL</p>
+<p>测试代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;initializer_list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    test()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"默认构造函数被调用"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;</span><br><span class="line">    test(<span class="built_in">initializer_list</span>&lt;<span class="keyword">int</span>&gt; args);</span><br><span class="line">    test(<span class="keyword">int</span> number,<span class="keyword">int</span> value);</span><br><span class="line">    test(<span class="keyword">const</span> test &amp;other);</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">(ostream &amp;os)</span></span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; container;</span><br><span class="line">    <span class="keyword">void</span> <span class="keyword">operator</span>=(test &amp;other);</span><br><span class="line">    ~test();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a;<span class="comment">//默认初始化</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">b</span><span class="params">()</span></span>;<span class="comment">//值初始化</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;b&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="function">test <span class="title">c</span><span class="params">(<span class="number">5</span>,<span class="number">1</span>)</span></span>;<span class="comment">//构造函数初始化</span></span><br><span class="line">    c.display(<span class="built_in">cout</span>);</span><br><span class="line">    <span class="built_in">string</span> str&#123;<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>&#125;;<span class="comment">//列表初始化</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    test d&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;<span class="comment">//自定义类列表初始化</span></span><br><span class="line">    d.display(<span class="built_in">cout</span>);</span><br><span class="line">    test e=d;<span class="comment">//拷贝构造函数初始化</span></span><br><span class="line">    e.display(<span class="built_in">cout</span>);</span><br><span class="line">    test f=test(<span class="number">4</span>,<span class="number">2</span>);<span class="comment">//编译器优化后的构造函数初始化</span></span><br><span class="line">    e.display(<span class="built_in">cout</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">test::test(<span class="built_in">initializer_list</span>&lt;<span class="keyword">int</span>&gt; args):container()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it=args.begin();it!=args.end();it++)</span><br><span class="line">    &#123;</span><br><span class="line">        container.push_back(*it);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"自定义列表初始化构造函数被调用"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test::test(<span class="keyword">int</span> number,<span class="keyword">int</span> value):container(number,value)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"普通构造函数初始化"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line">test::test(<span class="keyword">const</span> test &amp;other)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;container=other.container;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"拷贝构造函数被调用"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> test::display(ostream &amp;os)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it=container.begin();it!=container.end();it++)</span><br><span class="line">    &#123;</span><br><span class="line">        os&lt;&lt;*it&lt;&lt;<span class="string">' '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    os&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> test::<span class="keyword">operator</span>=(test &amp;other)</span><br><span class="line">&#123;</span><br><span class="line">    container=other.container;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"赋值运算符被调用"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test::~test()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"test对象被析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：<img src="/2020/08/31/C-中的几种初始化方式/Users/wfc/Desktop/QQ%E6%88%AA%E5%9B%BE20200831102019.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/2020/08/31/C-中的几种初始化方式/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
 
   
-  <div class="category-all-page">
-    <h2>共计&nbsp;3&nbsp;个分类</h2>
-    <ul class="category-list-item-list"><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/C/">C++</a><span class="category-list-item-list-count">16</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/其他/">其他</a><span class="category-list-item-list-count">5</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/汇编/">汇编</a><span class="category-list-item-list-count">3</span></li></ul>
-  </div>
+<nav id="article-nav">
   
-</article>
+  
+    <a href="/2020/08/26/理解C-中的头文件和源文件的作用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">理解C++中的头文件和源文件的作用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#默认初始化"><span class="toc-number">1.</span> <span class="toc-text">默认初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#直接初始化-构造初始化"><span class="toc-number">2.</span> <span class="toc-text">直接初始化/构造初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表初始化"><span class="toc-number">3.</span> <span class="toc-text">列表初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝初始化"><span class="toc-number">4.</span> <span class="toc-text">拷贝初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#值初始化"><span class="toc-number">5.</span> <span class="toc-text">值初始化</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+
           </div>
         </div>
       </div>
@@ -191,7 +362,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
