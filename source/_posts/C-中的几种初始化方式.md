@@ -125,4 +125,4 @@ test::~test()
     cout<<"test对象被析构"<<endl;
 }
 ```
-输出结果：![](C:/Users/wfc/Desktop/QQ截图20200831102019.png)
+输出结果：![](C-中的几种初始化方式/art1.png)
